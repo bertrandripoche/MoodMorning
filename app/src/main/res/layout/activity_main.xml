@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
@@ -15,20 +15,20 @@
         android:src="@drawable/smileyhappy"/>
 
     <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/activity_main_history"
+        android:id="@+id/activity_main_comment_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:background="@android:color/transparent"
+        android:background="#ffb8e986"
         android:layout_margin="30dp"
         android:src="@drawable/ic_note_add_black"/>
 
     <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/activity_main_comment"
+        android:id="@+id/activity_main_history_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:background="@android:color/transparent"
+        android:background="#ffb8e986"
         android:layout_margin="30dp"
         android:src="@drawable/ic_history_black"/>
 
