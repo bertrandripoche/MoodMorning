@@ -3,10 +3,14 @@ package com.depuisletemps.moodmorning.controller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
-import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MoodStore todayInfo;
 
+    private GestureDetectorCompat mDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +53,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCommentBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
 
+        mDetector = new GestureDetectorCompat(this, new MyGestureListener());
+
         mood = getMood();
         today = getDate();
 
         todayInfo = checkMoodForToday();
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.mDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 
     public void onClick(View v) {
@@ -92,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         String formattedZonedDate = formatter.format(ZonedDateTime.now());
-        /*formattedZonedDate = formattedZonedDate.replace("-", "_");*/
         return formattedZonedDate;
     }
 
@@ -108,5 +120,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             todayInfo = new MoodStore(reg);
         }
         return todayInfo;
+    }
+
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final String DEBUG_TAG = "Gestures";
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.d(DEBUG_TAG,"onDown: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            Log.d(DEBUG_TAG, "onFling: " + event1.getY() + " - " + event2.getY());
+            if ((event1.getY() < event2.getY())) {
+                Log.d(DEBUG_TAG, "onFling: On descend");
+            } else if ((event1.getY() > event2.getY())) {
+                Log.d(DEBUG_TAG, "onFling: On monte");
+            }
+            return true;
+        }
     }
 }
