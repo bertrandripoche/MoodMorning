@@ -2,7 +2,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".controller.MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffb8e986"
-        android:padding="30dp"
-        android:src="@drawable/smileyhappy"/>
+        android:padding="50dp"
+        android:src="@drawable/smileyhappy"
+        android:tag="happy"/>
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/activity_main_comment_btn"
