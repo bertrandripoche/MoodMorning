@@ -3,6 +3,7 @@ package com.depuisletemps.moodmorning.controller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
+import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         today = getDate();
 
         todayInfo = checkMoodForToday();
+
 
     }
 
@@ -126,20 +129,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private static final String DEBUG_TAG = "Gestures";
 
         @Override
-        public boolean onDown(MotionEvent event) {
-            Log.d(DEBUG_TAG,"onDown: " + event.toString());
-            return true;
-        }
-
-        @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
-            Log.d(DEBUG_TAG, "onFling: " + event1.getY() + " - " + event2.getY());
-            if ((event1.getY() < event2.getY())) {
-                Log.d(DEBUG_TAG, "onFling: On descend");
-            } else if ((event1.getY() > event2.getY())) {
-                Log.d(DEBUG_TAG, "onFling: On monte");
+
+            Mood newMood = Mood.valueOf(mood.toUpperCase());;
+            if (event1.getY() < event2.getY()) {
+                // Swipe down
+                newMood = Mood.changeMood("down", mood);
+            } else if (event1.getY() > event2.getY()){
+                // Swipe up
+                newMood = Mood.changeMood("up", mood);
             }
+            mood = newMood.name();
+
+            mMood.setBackgroundColor(Color.parseColor(newMood.getColor()));
+            mMood.setTag(newMood.getName());
+            int resID = getResources().getIdentifier(newMood.getFileName(), "drawable", getPackageName());
+            mMood.setImageResource(resID);
+
             return true;
         }
     }

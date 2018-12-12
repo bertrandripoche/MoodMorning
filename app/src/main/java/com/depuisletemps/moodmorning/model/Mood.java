@@ -19,6 +19,15 @@ public enum Mood {
         this.historyWidth = historyWidth;
     }
 
+    public static Mood changeMood(String direction, String mood) {
+       Mood currentMood = Mood.valueOf(mood.toUpperCase());
+       int i = currentMood.ordinal();
+       if (direction.equalsIgnoreCase("up") && i != 4) i++;
+       if (direction.equalsIgnoreCase("down") && i != 0) i--;
+       Mood newMood = Mood.values()[i];
+       return newMood;
+    }
+
     public String getColor() {
         return color;
     }

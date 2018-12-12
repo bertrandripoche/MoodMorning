@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MoodMorning</string>
+    <dimen name="icon_height_width">50dp</dimen>
 </resources>
