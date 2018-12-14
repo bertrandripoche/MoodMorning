@@ -15,19 +15,236 @@
         android:weightSum="1">
 
         <LinearLayout
+            android:id="@+id/previous_line_1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Il y a 1 semaine"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Il y a 6 jours"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Il y a 5 jours"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Il y a 4 jours"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Il y a 3 jours"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_6"
+            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".2"
-            android:orientation="vertical"
-            android:background="#ffde3c50">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/previous_mood_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:text="Avant-hier"/>
+
+            <ImageView
+                android:id="@+id/previous_comment_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:paddingRight="20dp"
+                android:layout_marginTop="-20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/previous_line_7"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/previous_mood_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:layout_weight="1"
                 android:paddingLeft="5dp"
-                android:text="Il y a 1 semaine" />
+                android:text="Hier"/>
 
             <ImageView
                 android:id="@+id/previous_comment_7"
@@ -37,226 +254,9 @@
                 android:layout_weight="1"
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px" />
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".8"
-            android:background="#ffb8e986"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Il y 6 jours" />
-
-            <ImageView
-                android:id="@+id/previous_comment_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff9ec4f"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Il y 5 jours" />
-
-            <ImageView
-                android:id="@+id/previous_comment_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".2"
-            android:background="#ffde3c50"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Il y 4 jours" />
-
-            <ImageView
-                android:id="@+id/previous_comment_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".4"
-            android:background="#ff9b9b9b"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Il y 3 jours" />
-
-            <ImageView
-                android:id="@+id/previous_comment_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#fff9ec4f"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Avant-hier" />
-
-            <ImageView
-                android:id="@+id/previous_comment_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".6"
-            android:background="#a5468ad9"
-            android:orientation="vertical"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/previous_mood_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:paddingLeft="5dp"
-                android:text="Hier" />
-
-            <ImageView
-                android:id="@+id/previous_comment_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_comment_black_48px" />
-        </LinearLayout>
-    </LinearLayout>
-
 
 </LinearLayout>

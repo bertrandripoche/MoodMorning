@@ -8,7 +8,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,20 +20,17 @@ import android.widget.Toast;
 import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
+import com.depuisletemps.moodmorning.utils.AboutTime;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.ZonedDateTime;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mMood;
     private ImageButton mCommentBtn;
     private ImageButton mHistoryBtn;
 
-    private SharedPreferences mPreferences;
-    public static final String PREF_KEY_COMMENT = "PREF_KEY_COMMENT";
+    /*private SharedPreferences mPreferences;*/
 
-    private String mood;
+    private Mood mood;
     private String today;
 
     private MoodStore todayInfo;
@@ -50,18 +46,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMood = (ImageView) findViewById(R.id.activity_main_mood);
         mCommentBtn = (ImageButton) findViewById(R.id.activity_main_comment_btn);
         mHistoryBtn = (ImageButton) findViewById(R.id.activity_main_history_btn);
-        mPreferences = getPreferences(MODE_PRIVATE);
+        /*mPreferences = getPreferences(MODE_PRIVATE);*/
 
         mCommentBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
-        mood = getMood();
-        today = getDate();
+        mood = Mood.HAPPY;
+        today = AboutTime.todayStr;
 
-        todayInfo = checkMoodForToday();
+        // As soon as someone open the app, we record the date, comment, mood
+        todayInfo = MoodStore.checkMoodForToday(this);
 
+        /*String test = mPreferences.getString("2018-12-13", "truc");
+        Toast.makeText(this,test,Toast.LENGTH_LONG).show();*/
 
     }
 
@@ -84,14 +83,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myComment.setHint(todayInfo.getComment());
             } 
 
+            // We open the Dialog box to enter the comment
             AlertDialog.Builder commentBox = new AlertDialog.Builder(MainActivity.this);
             commentBox.setView(commentBoxView);
             commentBox.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
                 public void onClick(DialogInterface dialog, int which) {
                     String comment = myComment.getText().toString();
-                    String toBeStored = today + "_" + mood + "_" + comment;
-                    mPreferences.edit().putString(today, toBeStored).apply();
-                    todayInfo = checkMoodForToday();
+                    if (!comment.equals("")) {
+                        String toBeStored = today + "_" + mood + "_" + comment;
+                        /*mPreferences.edit().putString(today, toBeStored).apply();*/
+                        MoodStore.storePreferences(MainActivity.this, today, toBeStored);
+                        todayInfo = MoodStore.checkMoodForToday(MainActivity.this);
+                    }
                 }
             });
             commentBox.setNegativeButton("Cancel", null);
@@ -99,52 +103,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (v.equals(mHistoryBtn)) {
             // If we click the History button
-            Toast.makeText(this, "History !", Toast.LENGTH_SHORT).show();
             Intent historyActivityIntent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(historyActivityIntent);
         }
     }
 
-    private String getDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        String formattedZonedDate = formatter.format(ZonedDateTime.now());
-        return formattedZonedDate;
-    }
-
-    private String getMood() {
-        return (String) mMood.getTag();
-    }
-
-    private MoodStore checkMoodForToday() {
+    /*private MoodStore checkMoodForToday() {
         if (mPreferences.getString(today, null) != null ) {
             todayInfo = new MoodStore(mPreferences.getString(today, null));
         } else {
-            String reg = today + "_" + mood + "_%";
+            String reg = today + "_" + mood.name() + "_%";
             todayInfo = new MoodStore(reg);
         }
         return todayInfo;
-    }
+    }*/
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private static final String DEBUG_TAG = "Gestures";
 
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
 
-            Mood newMood = Mood.valueOf(mood.toUpperCase());;
-            if (event1.getY() < event2.getY()) {
-                // Swipe down
-                newMood = Mood.changeMood("down", mood);
-            } else if (event1.getY() > event2.getY()){
-                // Swipe up
-                newMood = Mood.changeMood("up", mood);
-            }
-            mood = newMood.name();
+            // Swipe down
+            if (event1.getY() < event2.getY()) mood = Mood.changeMood("down", mood);
+            // Swipe up
+            else mood = Mood.changeMood("up", mood);
 
-            mMood.setBackgroundColor(Color.parseColor(newMood.getColor()));
-            mMood.setTag(newMood.getName());
-            int resID = getResources().getIdentifier(newMood.getFileName(), "drawable", getPackageName());
+            mMood.setBackgroundColor(Color.parseColor(mood.getColor()));
+            int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
             mMood.setImageResource(resID);
 
             return true;
