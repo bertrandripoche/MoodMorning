@@ -44,7 +44,7 @@ public class MoodStore extends AppCompatActivity {
 
     public static String getPreferences(Context context, String key) {
         SharedPreferences mPreferences = context.getSharedPreferences("mPreferences", Context.MODE_PRIVATE);
-        return mPreferences.getString(key,"NA");
+        return mPreferences.getString(key,"%");
     }
 
     public static MoodStore checkMoodForToday(Context context) {

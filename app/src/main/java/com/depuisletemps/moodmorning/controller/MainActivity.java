@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMood = (ImageView) findViewById(R.id.activity_main_mood);
         mCommentBtn = (ImageButton) findViewById(R.id.activity_main_comment_btn);
         mHistoryBtn = (ImageButton) findViewById(R.id.activity_main_history_btn);
-        /*mPreferences = getPreferences(MODE_PRIVATE);*/
 
         mCommentBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
@@ -56,11 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mood = Mood.HAPPY;
         today = AboutTime.todayStr;
 
-        // As soon as someone open the app, we record the date, comment, mood
+        // As soon as someone opens the app, we record the date, comment, mood
         todayInfo = MoodStore.checkMoodForToday(this);
-
-        /*String test = mPreferences.getString("2018-12-13", "truc");
-        Toast.makeText(this,test,Toast.LENGTH_LONG).show();*/
 
     }
 
@@ -107,16 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(historyActivityIntent);
         }
     }
-
-    /*private MoodStore checkMoodForToday() {
-        if (mPreferences.getString(today, null) != null ) {
-            todayInfo = new MoodStore(mPreferences.getString(today, null));
-        } else {
-            String reg = today + "_" + mood.name() + "_%";
-            todayInfo = new MoodStore(reg);
-        }
-        return todayInfo;
-    }*/
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 

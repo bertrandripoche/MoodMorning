@@ -1,14 +1,19 @@
 package com.depuisletemps.moodmorning.controller;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
+import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.depuisletemps.moodmorning.utils.AboutTime;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -27,14 +32,6 @@ public class HistoryActivity extends AppCompatActivity {
     private LinearLayout mLine6;
     private LinearLayout mLine7;
 
-    private TextView mTextLine1;
-    private TextView mTextLine2;
-    private TextView mTextLine3;
-    private TextView mTextLine4;
-    private TextView mTextLine5;
-    private TextView mTextLine6;
-    private TextView mTextLine7;
-
     private ImageView mCommentLine1;
     private ImageView mCommentLine2;
     private ImageView mCommentLine3;
@@ -50,19 +47,41 @@ public class HistoryActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-        mPreferences = getPreferences(MODE_PRIVATE);
+        mLine1= (LinearLayout) findViewById(R.id.previous_line_1);
+        mLine2= (LinearLayout) findViewById(R.id.previous_line_2);
+        mLine3= (LinearLayout) findViewById(R.id.previous_line_3);
+        mLine4= (LinearLayout) findViewById(R.id.previous_line_4);
+        mLine5= (LinearLayout) findViewById(R.id.previous_line_5);
+        mLine6= (LinearLayout) findViewById(R.id.previous_line_6);
+        mLine7= (LinearLayout) findViewById(R.id.previous_line_7);
+
+        mCommentLine1= (ImageView) findViewById(R.id.previous_comment_1);;
+        mCommentLine2= (ImageView) findViewById(R.id.previous_comment_2);;
+        mCommentLine3= (ImageView) findViewById(R.id.previous_comment_3);;
+        mCommentLine4= (ImageView) findViewById(R.id.previous_comment_4);;
+        mCommentLine5= (ImageView) findViewById(R.id.previous_comment_5);;
+        mCommentLine6= (ImageView) findViewById(R.id.previous_comment_6);;
+        mCommentLine7= (ImageView) findViewById(R.id.previous_comment_7);;
+
+        LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
+        ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
 
         String[] last7Days = AboutTime.getLast7Days();
 
-        /*for (int i = 0; i < last7Days.length; i++) {
-            if (mPreferences.getString(last7Days[i], null) != null) {
-                MoodStore dayInfo = new MoodStore(mPreferences.getString(last7Days[i], null));
-                Toast.makeText(this,mPreferences.getString(last7Days[i], null),Toast.LENGTH_SHORT).show();
+        for (int i = 6; i > -1; i--) {
+            /*Toast.makeText(this,last7Days[i],Toast.LENGTH_SHORT).show();*/
+            Log.d("3", last7Days[i]);
+            if (MoodStore.getPreferences(this, last7Days[i]) != "%") {
+                MoodStore dayInfo = new MoodStore(MoodStore.getPreferences(this, last7Days[i]));
+                Mood dayMood = Mood.valueOf(dayInfo.getMood());
+
+                tabLine[i].setBackgroundColor(Color.parseColor(dayMood.getColor()));
+                LinearLayout.LayoutParams lay = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
+                lay.weight = dayMood.getHistoryWidth();
+                if (dayInfo.getComment() != "%") {
+                    tabComment[i].setVisibility(View.VISIBLE);
+                }
             }
-        }*/
-
-        String test = mPreferences.getString("2018-12-13", "truc");
-        Toast.makeText(this,test,Toast.LENGTH_LONG).show();
-
+        }
     }
 }
