@@ -30,7 +30,7 @@
                 android:paddingLeft="5dp"
                 android:text="Il y a 1 semaine"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,6 +39,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -66,7 +67,7 @@
                 android:paddingLeft="5dp"
                 android:text="Il y a 6 jours"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -102,7 +104,7 @@
                 android:paddingLeft="5dp"
                 android:text="Il y a 5 jours"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +113,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -138,7 +141,7 @@
                 android:paddingLeft="5dp"
                 android:text="Il y a 4 jours"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,6 +150,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -174,7 +178,7 @@
                 android:paddingLeft="5dp"
                 android:text="Il y a 3 jours"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -183,6 +187,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -210,7 +215,7 @@
                 android:paddingLeft="5dp"
                 android:text="Avant-hier"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,6 +224,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
@@ -246,7 +252,7 @@
                 android:paddingLeft="5dp"
                 android:text="Hier"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/previous_comment_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -255,6 +261,7 @@
                 android:paddingRight="20dp"
                 android:layout_marginTop="-20dp"
                 android:src="@drawable/ic_comment_black_48px"
+                android:background="#0000"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>

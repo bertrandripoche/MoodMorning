@@ -3,18 +3,8 @@ package com.depuisletemps.moodmorning.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZonedDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-
-import com.depuisletemps.moodmorning.controller.HistoryActivity;
-import com.depuisletemps.moodmorning.controller.MainActivity;
 import com.depuisletemps.moodmorning.utils.AboutTime;
-
-import java.util.Map;
 
 public class MoodStore extends AppCompatActivity {
     private String date;
@@ -54,8 +44,8 @@ public class MoodStore extends AppCompatActivity {
         if (mPreferences.getString(today, null) != null ) {
             todayInfo = new MoodStore(mPreferences.getString(today, null));
         } else {
-            String reg = today + "_" + currentMood + "_%";
-            todayInfo = new MoodStore(reg);
+            String record = today + "_" + currentMood + "_%";
+            todayInfo = new MoodStore(record);
         }
         return todayInfo;
     }

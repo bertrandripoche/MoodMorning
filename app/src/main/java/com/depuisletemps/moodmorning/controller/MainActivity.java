@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mCommentBtn;
     private ImageButton mHistoryBtn;
 
-    /*private SharedPreferences mPreferences;*/
-
     private Mood mood;
     private String today;
 

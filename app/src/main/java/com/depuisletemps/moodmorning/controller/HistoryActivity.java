@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import java.util.Arrays;
 
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences mPreferences;
 
     private LinearLayout mLine1;
@@ -32,13 +33,15 @@ public class HistoryActivity extends AppCompatActivity {
     private LinearLayout mLine6;
     private LinearLayout mLine7;
 
-    private ImageView mCommentLine1;
-    private ImageView mCommentLine2;
-    private ImageView mCommentLine3;
-    private ImageView mCommentLine4;
-    private ImageView mCommentLine5;
-    private ImageView mCommentLine6;
-    private ImageView mCommentLine7;
+    private ImageButton mCommentLine1;
+    private ImageButton mCommentLine2;
+    private ImageButton mCommentLine3;
+    private ImageButton mCommentLine4;
+    private ImageButton mCommentLine5;
+    private ImageButton mCommentLine6;
+    private ImageButton mCommentLine7;
+
+    String[] last7Days = AboutTime.getLast7Days();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +58,35 @@ public class HistoryActivity extends AppCompatActivity {
         mLine6= (LinearLayout) findViewById(R.id.previous_line_6);
         mLine7= (LinearLayout) findViewById(R.id.previous_line_7);
 
-        mCommentLine1= (ImageView) findViewById(R.id.previous_comment_1);;
-        mCommentLine2= (ImageView) findViewById(R.id.previous_comment_2);;
-        mCommentLine3= (ImageView) findViewById(R.id.previous_comment_3);;
-        mCommentLine4= (ImageView) findViewById(R.id.previous_comment_4);;
-        mCommentLine5= (ImageView) findViewById(R.id.previous_comment_5);;
-        mCommentLine6= (ImageView) findViewById(R.id.previous_comment_6);;
-        mCommentLine7= (ImageView) findViewById(R.id.previous_comment_7);;
+        mCommentLine1= (ImageButton) findViewById(R.id.previous_comment_1);
+        mCommentLine2= (ImageButton) findViewById(R.id.previous_comment_2);
+        mCommentLine3= (ImageButton) findViewById(R.id.previous_comment_3);
+        mCommentLine4= (ImageButton) findViewById(R.id.previous_comment_4);
+        mCommentLine5= (ImageButton) findViewById(R.id.previous_comment_5);
+        mCommentLine6= (ImageButton) findViewById(R.id.previous_comment_6);
+        mCommentLine7= (ImageButton) findViewById(R.id.previous_comment_7);
+
+        mCommentLine1.setTag(1);
+        mCommentLine2.setTag(2);
+        mCommentLine3.setTag(3);
+        mCommentLine4.setTag(4);
+        mCommentLine5.setTag(5);
+        mCommentLine6.setTag(6);
+        mCommentLine7.setTag(7);
+
+        mCommentLine1.setOnClickListener(this);
+        mCommentLine2.setOnClickListener(this);
+        mCommentLine3.setOnClickListener(this);
+        mCommentLine4.setOnClickListener(this);
+        mCommentLine5.setOnClickListener(this);
+        mCommentLine6.setOnClickListener(this);
+        mCommentLine7.setOnClickListener(this);
 
         LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
         ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
 
-        String[] last7Days = AboutTime.getLast7Days();
+        for (int i = 0; i < last7Days.length; i++) {
 
-        for (int i = 6; i > -1; i--) {
-            /*Toast.makeText(this,last7Days[i],Toast.LENGTH_SHORT).show();*/
-            Log.d("3", last7Days[i]);
             if (MoodStore.getPreferences(this, last7Days[i]) != "%") {
                 MoodStore dayInfo = new MoodStore(MoodStore.getPreferences(this, last7Days[i]));
                 Mood dayMood = Mood.valueOf(dayInfo.getMood());
@@ -83,5 +99,13 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void onClick(View v) {
+        int nbComment = (int) v.getTag();
+
+        MoodStore dayInfo = new MoodStore(MoodStore.getPreferences(this, last7Days[nbComment - 1]));
+        String comment = dayInfo.getComment();
+        Toast.makeText(this,comment,Toast.LENGTH_LONG).show();
     }
 }
