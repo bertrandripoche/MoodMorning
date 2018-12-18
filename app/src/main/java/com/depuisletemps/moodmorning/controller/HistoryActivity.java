@@ -47,7 +47,6 @@ public class HistoryActivity extends AppCompatActivity {
     private MoodStore mMood5;
     private MoodStore mMood6;
     private MoodStore mMood7;
-    /*private MoodStore[] tabMood = {mMood1, mMood2, mMood3, mMood4, mMood5, mMood6, mMood7};*/
 
     String[] last7Days = TimeUtils.getLast7Days();
 

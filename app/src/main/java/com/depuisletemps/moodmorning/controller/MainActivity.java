@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Mood;
@@ -56,6 +57,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
         }
 
+        updateView(todayInfo.getMood());
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        todayInfo = mMoodDao.getTodaysMood(this);
+        if (todayInfo == null) {
+            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
+            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
+            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
+        }
         updateView(todayInfo.getMood());
     }
 
