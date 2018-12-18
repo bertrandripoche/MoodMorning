@@ -6,15 +6,12 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
-public class AboutTime {
+public class TimeUtils {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-    public static LocalDate today = LocalDate.now();
-    public static String todayStr = today.format(formatter);
 
     public static String getDate() {
-        String formattedZonedDate = formatter.format(ZonedDateTime.now());
-        return formattedZonedDate;
+        return formatter.format(ZonedDateTime.now());
     }
 
     public static String[] getLast7Days() {
@@ -22,7 +19,7 @@ public class AboutTime {
         String[] daysBefore = new String[7];
         int j = 0;
         for (int i = 7; i > 0 ; i--) {
-            LocalDate dayBefore = today.minusDays(i);
+            ZonedDateTime dayBefore = ZonedDateTime.now().minusDays(i);
             daysBefore[j] = dayBefore.format(formatter);
             j++;
         }

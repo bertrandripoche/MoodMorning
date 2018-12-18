@@ -2,12 +2,12 @@ package com.depuisletemps.moodmorning.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,25 +15,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
-import com.depuisletemps.moodmorning.utils.AboutTime;
+import com.depuisletemps.moodmorning.utils.TimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView mMood;
+    private ImageView mImageViewMood;
     private ImageButton mCommentBtn;
     private ImageButton mHistoryBtn;
-
-    private Mood mood;
-    private String today;
 
     private MoodStore todayInfo;
 
     private GestureDetectorCompat mDetector;
+
+    private MoodDao mMoodDao = new MoodDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         AndroidThreeTen.init(this);
 
-        mMood = (ImageView) findViewById(R.id.activity_main_mood);
+        mImageViewMood = (ImageView) findViewById(R.id.activity_main_mood);
         mCommentBtn = (ImageButton) findViewById(R.id.activity_main_comment_btn);
         mHistoryBtn = (ImageButton) findViewById(R.id.activity_main_history_btn);
 
@@ -50,12 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
-        mood = Mood.HAPPY;
-        today = AboutTime.todayStr;
+        // As soon as someone opens the app, we record the date, comment, mood (or we get the existing ones)
+        todayInfo = mMoodDao.getTodaysMood(this);
+        if (todayInfo == null) {
+            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
+            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
+            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
+        }
 
-        // As soon as someone opens the app, we record the date, comment, mood
-        todayInfo = MoodStore.checkMoodForToday(this);
-
+        updateView(todayInfo.getMood());
     }
 
     @Override
@@ -65,15 +66,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v) {
+        // If we click the Comment button
         if (v.equals(mCommentBtn)) {
-            // If we click the Comment button
-
             LayoutInflater factory = LayoutInflater.from(this);
             final View commentBoxView = factory.inflate(R.layout.activity_main_my_comment_box, null);
             final EditText myComment = (EditText) commentBoxView.findViewById(R.id.activity_main_my_comment_input);
 
             // If a comment has been entered today, we display it, if not, we display the hint
-            if (!todayInfo.getComment().equals("%")) {
+            if (todayInfo.getComment() != null && !todayInfo.getComment().equals("")) {
                 myComment.setHint(todayInfo.getComment());
             } 
 
@@ -84,22 +84,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
                 public void onClick(DialogInterface dialog, int which) {
                     String comment = myComment.getText().toString();
+                    // If a comment has been specified, we update the stored mood
                     if (!comment.equals("")) {
-                        String toBeStored = today + "_" + mood + "_" + comment;
-                        /*mPreferences.edit().putString(today, toBeStored).apply();*/
-                        MoodStore.storePreferences(MainActivity.this, today, toBeStored);
-                        todayInfo = MoodStore.checkMoodForToday(MainActivity.this);
+                        String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + comment;
+                        mMoodDao.storePreferences(MainActivity.this, TimeUtils.getDate(), toBeStored);
+                        todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
                     }
                 }
             });
             commentBox.setNegativeButton("Cancel", null);
             commentBox.show();
-
+        // If we click the History button
         } else if (v.equals(mHistoryBtn)) {
-            // If we click the History button
+            // We start the History activity
             Intent historyActivityIntent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(historyActivityIntent);
         }
+    }
+
+    public void updateView(Mood mood) {
+        mImageViewMood.setBackgroundColor(Color.parseColor(mood.getColor()));
+        int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
+        mImageViewMood.setImageResource(resID);
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -109,13 +115,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                float velocityX, float velocityY) {
 
             // Swipe down
-            if (event1.getY() < event2.getY()) mood = Mood.changeMood("down", mood);
+            if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood("down", todayInfo.getMood()));
             // Swipe up
-            else mood = Mood.changeMood("up", mood);
+            else todayInfo.setMood(Mood.changeMood("up", todayInfo.getMood()));
 
-            mMood.setBackgroundColor(Color.parseColor(mood.getColor()));
-            int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
-            mMood.setImageResource(resID);
+            mImageViewMood.setBackgroundColor(Color.parseColor(todayInfo.getMood().getColor()));
+            int resID = getResources().getIdentifier(todayInfo.getMood().getFileName(), "drawable", getPackageName());
+            mImageViewMood.setImageResource(resID);
+
+            String currentComment = todayInfo.getComment();
+            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + currentComment;
+            mMoodDao.storePreferences(MainActivity.this, TimeUtils.getDate(), toBeStored);
+            todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
 
             return true;
         }

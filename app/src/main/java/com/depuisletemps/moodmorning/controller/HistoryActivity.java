@@ -2,11 +2,12 @@ package com.depuisletemps.moodmorning.controller;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,14 +17,12 @@ import android.widget.Toast;
 import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
-import com.depuisletemps.moodmorning.utils.AboutTime;
+import com.depuisletemps.moodmorning.utils.TimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import java.util.Arrays;
 
-
-public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
-    private SharedPreferences mPreferences;
+public class HistoryActivity extends AppCompatActivity {
+    private MoodDao mMoodDao  = new MoodDao();
 
     private LinearLayout mLine1;
     private LinearLayout mLine2;
@@ -41,7 +40,16 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton mCommentLine6;
     private ImageButton mCommentLine7;
 
-    String[] last7Days = AboutTime.getLast7Days();
+    private MoodStore mMood1;
+    private MoodStore mMood2;
+    private MoodStore mMood3;
+    private MoodStore mMood4;
+    private MoodStore mMood5;
+    private MoodStore mMood6;
+    private MoodStore mMood7;
+    /*private MoodStore[] tabMood = {mMood1, mMood2, mMood3, mMood4, mMood5, mMood6, mMood7};*/
+
+    String[] last7Days = TimeUtils.getLast7Days();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,46 +74,39 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         mCommentLine6= (ImageButton) findViewById(R.id.previous_comment_6);
         mCommentLine7= (ImageButton) findViewById(R.id.previous_comment_7);
 
-        mCommentLine1.setTag(1);
-        mCommentLine2.setTag(2);
-        mCommentLine3.setTag(3);
-        mCommentLine4.setTag(4);
-        mCommentLine5.setTag(5);
-        mCommentLine6.setTag(6);
-        mCommentLine7.setTag(7);
-
-        mCommentLine1.setOnClickListener(this);
-        mCommentLine2.setOnClickListener(this);
-        mCommentLine3.setOnClickListener(this);
-        mCommentLine4.setOnClickListener(this);
-        mCommentLine5.setOnClickListener(this);
-        mCommentLine6.setOnClickListener(this);
-        mCommentLine7.setOnClickListener(this);
-
         LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
         ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
 
         for (int i = 0; i < last7Days.length; i++) {
 
-            if (MoodStore.getPreferences(this, last7Days[i]) != "%") {
-                MoodStore dayInfo = new MoodStore(MoodStore.getPreferences(this, last7Days[i]));
-                Mood dayMood = Mood.valueOf(dayInfo.getMood());
+            if (mMoodDao.getPreferences(this, last7Days[i]) != "%") {
+                final MoodStore dayInfo = mMoodDao.getMoodStoreFromRecord(mMoodDao.getPreferences(this, last7Days[i]));
 
-                tabLine[i].setBackgroundColor(Color.parseColor(dayMood.getColor()));
+                tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
                 LinearLayout.LayoutParams lay = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
-                lay.weight = dayMood.getHistoryWidth();
-                if (dayInfo.getComment() != "%") {
+                lay.weight = dayInfo.getMood().getHistoryWidth();
+                if (!dayInfo.getComment().equals("")) {
                     tabComment[i].setVisibility(View.VISIBLE);
+                    tabComment[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.activity_history_my_comment_toast,
+                                    (ViewGroup) findViewById(R.id.activity_history_comment_box_toast));
+
+                            TextView text = (TextView) layout.findViewById(R.id.activity_history_comment_text_toast);
+                            text.setText(dayInfo.getComment());
+
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+                    });
                 }
             }
         }
     }
 
-    public void onClick(View v) {
-        int nbComment = (int) v.getTag();
-
-        MoodStore dayInfo = new MoodStore(MoodStore.getPreferences(this, last7Days[nbComment - 1]));
-        String comment = dayInfo.getComment();
-        Toast.makeText(this,comment,Toast.LENGTH_LONG).show();
-    }
 }
