@@ -7,6 +7,8 @@ import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.depuisletemps.moodmorning.utils.TimeUtils;
 
+import java.util.Map;
+
 public class MoodDao {
     private static final String PREFS_NAME = "mPreferences";
 
@@ -31,6 +33,11 @@ public class MoodDao {
             }
 
         return moodStore;
+    }
+
+    public Map<String, ?> getAllMoods(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getAll();
     }
 
     public MoodStore getMoodStoreFromRecord(String record) {

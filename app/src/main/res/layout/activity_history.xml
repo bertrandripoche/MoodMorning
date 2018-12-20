@@ -15,14 +15,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_1"
+            android:id="@+id/activity_history_line_1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_1"
+                android:id="@+id/activity_history_mood_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -31,13 +31,13 @@
                 android:text="Il y a 1 semaine"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_1"
+                android:id="@+id/activity_history__comment_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_weight="1"
                 android:paddingRight="20dp"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:visibility="invisible"/>
@@ -52,14 +52,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_2"
+            android:id="@+id/activity_history_line_2"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_2"
+                android:id="@+id/activity_history__mood_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -68,13 +68,13 @@
                 android:text="Il y a 6 jours"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_2"
+                android:id="@+id/activity_history__comment_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_weight="1"
                 android:paddingRight="20dp"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:visibility="invisible"/>
@@ -89,14 +89,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_3"
+            android:id="@+id/activity_history_line_3"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_3"
+                android:id="@+id/activity_history__mood_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -105,7 +105,7 @@
                 android:text="Il y a 5 jours"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_3"
+                android:id="@+id/activity_history__comment_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -126,14 +126,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_4"
+            android:id="@+id/activity_history_line_4"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_4"
+                android:id="@+id/activity_history__mood_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -142,7 +142,7 @@
                 android:text="Il y a 4 jours"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_4"
+                android:id="@+id/activity_history__comment_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -163,14 +163,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_5"
+            android:id="@+id/activity_history_line_5"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_5"
+                android:id="@+id/activity_history__mood_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -179,7 +179,7 @@
                 android:text="Il y a 3 jours"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_5"
+                android:id="@+id/activity_history__comment_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -200,14 +200,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_6"
+            android:id="@+id/activity_history_line_6"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_6"
+                android:id="@+id/activity_history__mood_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -216,7 +216,7 @@
                 android:text="Avant-hier"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_6"
+                android:id="@+id/activity_history__comment_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -237,14 +237,14 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:id="@+id/previous_line_7"
+            android:id="@+id/activity_history_line_7"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/previous_mood_7"
+                android:id="@+id/activity_history__mood_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -253,7 +253,7 @@
                 android:text="Hier"/>
 
             <ImageButton
-                android:id="@+id/previous_comment_7"
+                android:id="@+id/activity_history__comment_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

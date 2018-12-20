@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mImageViewMood;
     private ImageButton mCommentBtn;
     private ImageButton mHistoryBtn;
+    private ImageButton mStatsBtn;
 
     private MoodStore todayInfo;
 
@@ -43,9 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImageViewMood = (ImageView) findViewById(R.id.activity_main_mood);
         mCommentBtn = (ImageButton) findViewById(R.id.activity_main_comment_btn);
         mHistoryBtn = (ImageButton) findViewById(R.id.activity_main_history_btn);
+        mStatsBtn = (ImageButton) findViewById(R.id.activity_main_stats_btn);
 
         mCommentBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
+        mStatsBtn.setOnClickListener(this);
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
@@ -112,6 +115,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // We start the History activity
             Intent historyActivityIntent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(historyActivityIntent);
+        // If we click the Stats button
+        } else if (v.equals(mStatsBtn)) {
+            // We start the Stats activity
+            Intent statsActivityIntent = new Intent(MainActivity.this, StatsActivity.class);
+            startActivity(statsActivityIntent);
         }
     }
 

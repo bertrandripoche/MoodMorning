@@ -57,21 +57,21 @@ public class HistoryActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-        mLine1= (LinearLayout) findViewById(R.id.previous_line_1);
-        mLine2= (LinearLayout) findViewById(R.id.previous_line_2);
-        mLine3= (LinearLayout) findViewById(R.id.previous_line_3);
-        mLine4= (LinearLayout) findViewById(R.id.previous_line_4);
-        mLine5= (LinearLayout) findViewById(R.id.previous_line_5);
-        mLine6= (LinearLayout) findViewById(R.id.previous_line_6);
-        mLine7= (LinearLayout) findViewById(R.id.previous_line_7);
+        mLine1= (LinearLayout) findViewById(R.id.activity_history_line_1);
+        mLine2= (LinearLayout) findViewById(R.id.activity_history_line_2);
+        mLine3= (LinearLayout) findViewById(R.id.activity_history_line_3);
+        mLine4= (LinearLayout) findViewById(R.id.activity_history_line_4);
+        mLine5= (LinearLayout) findViewById(R.id.activity_history_line_5);
+        mLine6= (LinearLayout) findViewById(R.id.activity_history_line_6);
+        mLine7= (LinearLayout) findViewById(R.id.activity_history_line_7);
 
-        mCommentLine1= (ImageButton) findViewById(R.id.previous_comment_1);
-        mCommentLine2= (ImageButton) findViewById(R.id.previous_comment_2);
-        mCommentLine3= (ImageButton) findViewById(R.id.previous_comment_3);
-        mCommentLine4= (ImageButton) findViewById(R.id.previous_comment_4);
-        mCommentLine5= (ImageButton) findViewById(R.id.previous_comment_5);
-        mCommentLine6= (ImageButton) findViewById(R.id.previous_comment_6);
-        mCommentLine7= (ImageButton) findViewById(R.id.previous_comment_7);
+        mCommentLine1= (ImageButton) findViewById(R.id.activity_history__comment_1);
+        mCommentLine2= (ImageButton) findViewById(R.id.activity_history__comment_2);
+        mCommentLine3= (ImageButton) findViewById(R.id.activity_history__comment_3);
+        mCommentLine4= (ImageButton) findViewById(R.id.activity_history__comment_4);
+        mCommentLine5= (ImageButton) findViewById(R.id.activity_history__comment_5);
+        mCommentLine6= (ImageButton) findViewById(R.id.activity_history__comment_6);
+        mCommentLine7= (ImageButton) findViewById(R.id.activity_history__comment_7);
 
         LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
         ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
@@ -97,7 +97,7 @@ public class HistoryActivity extends AppCompatActivity {
                             text.setText(dayInfo.getComment());
 
                             Toast toast = new Toast(getApplicationContext());
-                            toast.setGravity(Gravity.BOTTOM|Gravity.FILL_HORIZONTAL, 0, 0);
+                            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 10);
                             toast.setDuration(Toast.LENGTH_LONG);
                             toast.setView(layout);
                             toast.show();
