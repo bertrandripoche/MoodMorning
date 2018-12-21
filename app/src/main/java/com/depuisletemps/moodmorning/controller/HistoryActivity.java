@@ -77,13 +77,15 @@ public class HistoryActivity extends AppCompatActivity {
         ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
 
         for (int i = 0; i < last7Days.length; i++) {
-
+            // We check if we have a stored mood for the accurate day
             if (mMoodDao.getPreferences(this, last7Days[i]) != "%") {
                 final MoodStore dayInfo = mMoodDao.getMoodStoreFromRecord(mMoodDao.getPreferences(this, last7Days[i]));
 
+                // We change the background according to the mood of the day
                 tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
-                LinearLayout.LayoutParams lay = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
-                lay.weight = dayInfo.getMood().getHistoryWidth();
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
+                layoutParams.weight = dayInfo.getMood().getHistoryWidth();
+                // If existing, we print the comment via a Toast
                 if (!dayInfo.getComment().equals("")) {
                     tabComment[i].setVisibility(View.VISIBLE);
                     tabComment[i].setOnClickListener(new View.OnClickListener() {

@@ -18,35 +18,36 @@ import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class StatsActivity extends AppCompatActivity {
+    private MoodDao mMoodDao = new MoodDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        // Pie chart creation
         PieChartView pieChartView = findViewById(R.id.activity_stats_pie_chart);
-
-
         List<SliceValue> pieData = new ArrayList<>();
 
-        MoodDao moodDao = new MoodDao();
-        Map<String, ?> allMoods = moodDao.getAllMoods(this);
+        // Data aggregation to populate the chart
+        Map<String, ?> allMoods = mMoodDao.getAllMoods(this);
+        Map<Mood, Integer> moodsDataForPieChart = new HashMap<>();
 
-        Map<Mood, Integer> moodsReport = new HashMap<>();
-
+        // We 
         for (Map.Entry<String, ?> entry : allMoods.entrySet()) {
             String record = (String) entry.getValue();
-            MoodStore moodStore = moodDao.getMoodStoreFromRecord(record);
-            if (moodsReport.get(moodStore.getMood()) == null) {
-                moodsReport.put(moodStore.getMood(), 1);
+            MoodStore moodStore = mMoodDao.getMoodStoreFromRecord(record);
+            if (moodsDataForPieChart.get(moodStore.getMood()) == null) {
+                moodsDataForPieChart.put(moodStore.getMood(), 1);
             } else {
-                moodsReport.put(moodStore.getMood(), moodsReport.get(moodStore.getMood()) + 1);
+                moodsDataForPieChart.put(moodStore.getMood(), moodsDataForPieChart.get(moodStore.getMood()) + 1);
             }
         }
 
-        for (Map.Entry<Mood, Integer> entry : moodsReport.entrySet()) {
+
+        for (Map.Entry<Mood, Integer> entry : moodsDataForPieChart.entrySet()) {
             Mood mood = entry.getKey();
-            pieData.add(new SliceValue(entry.getValue(), Color.parseColor(mood.getColor())).setLabel(mood.toString() + " : " + entry.getValue()).);
+            pieData.add(new SliceValue(entry.getValue(), Color.parseColor(mood.getColor())).setLabel(mood.toString() + " : " + entry.getValue()));
         }
 
         PieChartData pieChartData = new PieChartData(pieData);

@@ -19,6 +19,12 @@ public enum Mood {
         this.historyWidth = historyWidth;
     }
 
+    /*
+    Method returning the new mood to display after swiping up or down the main screen
+    PARAM :
+    - direction : "up" or "down"
+    - currentMood
+     */
     public static Mood changeMood(String direction, Mood currentMood) {
        int i = currentMood.ordinal();
        if (direction.equalsIgnoreCase("up") && i != 4) i++;
@@ -26,13 +32,6 @@ public enum Mood {
        Mood newMood = Mood.values()[i];
        return newMood;
     }
-
-    /*public void updateMood(ImageView imgView, Mood mood) {
-        imgView.setBackgroundColor(Color.parseColor(mood.getColor()));
-        imgView.setTag(mood.getName());
-        int resID = getResources().getIdentifier(mood.getFileName(), "drawable", MainActivity.getPackageName());
-        imgView.setImageResource(resID);
-    }*/
 
     public String getColor() {
         return color;

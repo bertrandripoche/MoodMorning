@@ -7,7 +7,6 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Mood;
@@ -52,33 +50,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
-        // As soon as someone opens the app, we record the date, comment, mood (or we get the existing ones)
-        todayInfo = mMoodDao.getTodaysMood(this);
-        if (todayInfo == null) {
-            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
-            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
-            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
-        }
-
-        updateView(todayInfo.getMood());
+        // As soon as someone opens the app, we record the date, comment, mood (or we get the existing ones), and update the scree accordingly
+        processCurrentMood();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        todayInfo = mMoodDao.getTodaysMood(this);
-        if (todayInfo == null) {
-            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
-            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
-            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
-        }
-        updateView(todayInfo.getMood());
+        processCurrentMood();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
         this.mDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
+    }
+
+    /*
+    This method :
+    - check the stored mood and update the screen accordingly
+    - if there is no mood stored, it stores the current one
+     */
+    private void processCurrentMood() {
+        todayInfo = mMoodDao.getTodaysMood(this);
+        if (todayInfo == null) {
+            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
+            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
+            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
+        }
+        updateView(todayInfo.getMood());
+    }
+
+    /*
+    This method :
+    - update the screen accordingly to match the required mood
+    PARAM : Mood mood which is the mood that we want to have set
+     */
+    public void updateView(Mood mood) {
+        mImageViewMood.setBackgroundColor(Color.parseColor(mood.getColor()));
+        int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
+        mImageViewMood.setImageResource(resID);
     }
 
     public void onClick(View v) {
@@ -100,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
                 public void onClick(DialogInterface dialog, int which) {
                     String comment = myComment.getText().toString();
-                    // If a comment has been specified, we update the stored mood
+                    // If a comment has been specified and we touch "Add", we update the stored mood
                     if (!comment.equals("")) {
                         String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + comment;
                         mMoodDao.storePreferences(MainActivity.this, TimeUtils.getDate(), toBeStored);
@@ -123,12 +134,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void updateView(Mood mood) {
-        mImageViewMood.setBackgroundColor(Color.parseColor(mood.getColor()));
-        int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
-        mImageViewMood.setImageResource(resID);
-    }
-
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
@@ -140,9 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Swipe up
             else todayInfo.setMood(Mood.changeMood("up", todayInfo.getMood()));
 
-            mImageViewMood.setBackgroundColor(Color.parseColor(todayInfo.getMood().getColor()));
-            int resID = getResources().getIdentifier(todayInfo.getMood().getFileName(), "drawable", getPackageName());
-            mImageViewMood.setImageResource(resID);
+            updateView(todayInfo.getMood());
 
             String currentComment = todayInfo.getComment();
             String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + currentComment;
