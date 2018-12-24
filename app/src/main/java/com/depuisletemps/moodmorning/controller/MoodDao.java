@@ -2,6 +2,7 @@ package com.depuisletemps.moodmorning.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
@@ -9,40 +10,36 @@ import com.depuisletemps.moodmorning.utils.TimeUtils;
 
 import java.util.Map;
 
-public class MoodDao {
+class MoodDao {
     private static final String PREFS_NAME = "mPreferences";
 
-    /*
-    This methods stores the information of the day
-    PARAM :
-    Context context
-    String today : the current day string YYYY-MM-DD
-    String record : the string representing our day_mood_comment
+    /**
+     * This method stores the information of the day
+     * @param moodStore : the MoodStore representing the current day/mood/comment
      */
-    public void storePreferences(Context context, String today, String record) {
+    void insertMoodstore(Context context, MoodStore moodStore) {
         SharedPreferences mPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(today, record);
-        editor.commit();
+
+        String toBeStored = TimeUtils.getDate() + "_" + moodStore.getMood() + "_" + moodStore.getComment();
+        editor.putString(TimeUtils.getDate(), toBeStored);
+        editor.apply();
     }
 
-    /*
-    This method returns the String stored for the expected day
-    PARAM :
-    Context context
-    String key (representing a date YYYY-MM-DD)
+    /**
+     * This method returns the String stored for the expected day
+     * @param key representing the date YYYY-MM-DD for which we are looking for a stored data
      */
-    public String getPreferences(Context context, String key) {
+    String getPreferences(Context context, String key) {
         SharedPreferences mPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return mPreferences.getString(key,"%");
     }
 
-    /*
-    This method returns the object MoodStore for today if existing
-    PARAM :
-    Context context
+    /**
+     * @return Moodstore which represents the object MoodStore for today if existing
      */
-    public MoodStore getTodaysMood(Context context) {
+    @Nullable
+    MoodStore getTodaysMood(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         MoodStore moodStore = null;
 
@@ -53,22 +50,43 @@ public class MoodDao {
         return moodStore;
     }
 
-    /*
-    This method returns all the records stored in SharePreferences
-    PARAM :
-    Context context
+    /**
+     * This method updates only the mood in the stored information for today
+     * @param mood : the mood that we want to store in our MoodStore
      */
-    public Map<String, ?> getAllMoods(Context context) {
+    void updateTodaysMood(Context context, Mood mood) {
+        MoodStore today = getTodaysMood(context);
+        if (today != null) {
+            today.setMood(mood);
+        }
+        this.insertMoodstore(context,today);
+    }
+
+    /**
+     * This method updates only the comment in the stored information for today
+     * @param comment : the comment that we want to store in our MoodStore
+     */
+    void updateTodaysComment(Context context, String comment) {
+        MoodStore today = this.getTodaysMood(context);
+        if (today != null) {
+            today.setComment(comment);
+            insertMoodstore(context, today);
+        }
+    }
+
+    /**
+     * This method returns all the records stored in SharePreferences
+     */
+    Map<String, ?> getAllMoods(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getAll();
     }
 
-    /*
-    This method returns the object MoodStore from a stored record
-    PARAM :
-    String record
+    /**
+     * This method returns the object MoodStore from a stored record
+     * @param record : our serialized String representing our MoodStore
      */
-    public MoodStore getMoodStoreFromRecord(String record) {
+    MoodStore getMoodStoreFromRecord(String record) {
         MoodStore moodStore = null;
         String[] recordArray = record.split("_", 3);
 

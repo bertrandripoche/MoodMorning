@@ -3,10 +3,12 @@ package com.depuisletemps.moodmorning.controller;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.depuisletemps.moodmorning.R;
+import com.depuisletemps.moodmorning.model.Direction;
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.depuisletemps.moodmorning.utils.TimeUtils;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mHistoryBtn;
     private ImageButton mStatsBtn;
 
-    private MoodStore todayInfo;
+ //   private MoodStore todayInfo;
 
     private GestureDetectorCompat mDetector;
 
@@ -39,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         AndroidThreeTen.init(this);
 
-        mImageViewMood = (ImageView) findViewById(R.id.activity_main_mood);
-        mCommentBtn = (ImageButton) findViewById(R.id.activity_main_comment_btn);
-        mHistoryBtn = (ImageButton) findViewById(R.id.activity_main_history_btn);
-        mStatsBtn = (ImageButton) findViewById(R.id.activity_main_stats_btn);
+        mImageViewMood = findViewById(R.id.activity_main_mood);
+        mCommentBtn = findViewById(R.id.activity_main_comment_btn);
+        mHistoryBtn = findViewById(R.id.activity_main_history_btn);
+        mStatsBtn = findViewById(R.id.activity_main_stats_btn);
 
         mCommentBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
@@ -66,19 +69,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onTouchEvent(event);
     }
 
-    /*
-    This method :
-    - check the stored mood and update the screen accordingly
-    - if there is no mood stored, it stores the current one
+    /**
+     * This method :
+     * - check the stored mood and update the screen accordingly
+     * - if there is no mood stored, it stores the current one
      */
     private void processCurrentMood() {
-        todayInfo = mMoodDao.getTodaysMood(this);
+        MoodStore todayInfo = mMoodDao.getTodaysMood(this);
         if (todayInfo == null) {
-            todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
-            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" ;
-            mMoodDao.storePreferences(this, TimeUtils.getDate(), toBeStored);
+            todayInfo = getDefaultMoodStore();
+            mMoodDao.insertMoodstore(this, todayInfo);
         }
         updateView(todayInfo.getMood());
+    }
+
+    @NonNull
+    private MoodStore getDefaultMoodStore() {
+        MoodStore todayInfo;
+        todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
+        return todayInfo;
     }
 
     /*
@@ -95,43 +104,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         // If we click the Comment button
         if (v.equals(mCommentBtn)) {
-            LayoutInflater factory = LayoutInflater.from(this);
-            final View commentBoxView = factory.inflate(R.layout.activity_main_my_comment_box, null);
-            final EditText myComment = (EditText) commentBoxView.findViewById(R.id.activity_main_my_comment_input);
+            displayCommentBox();
 
-            // If a comment has been entered today, we display it, if not, we display the hint
-            if (todayInfo.getComment() != null && !todayInfo.getComment().equals("")) {
-                myComment.setHint(todayInfo.getComment());
-            } 
-
-            // We open the Dialog box to enter the comment
-            AlertDialog.Builder commentBox = new AlertDialog.Builder(MainActivity.this);
-            commentBox.setView(commentBoxView);
-            commentBox.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
-                public void onClick(DialogInterface dialog, int which) {
-                    String comment = myComment.getText().toString();
-                    // If a comment has been specified and we touch "Add", we update the stored mood
-                    if (!comment.equals("")) {
-                        String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + comment;
-                        mMoodDao.storePreferences(MainActivity.this, TimeUtils.getDate(), toBeStored);
-                        todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
-                    }
-                }
-            });
-            commentBox.setNegativeButton("Cancel", null);
-            commentBox.show();
         // If we click the History button
         } else if (v.equals(mHistoryBtn)) {
-            // We start the History activity
-            Intent historyActivityIntent = new Intent(MainActivity.this, HistoryActivity.class);
-            startActivity(historyActivityIntent);
-        // If we click the Stats button
+            startHistoryActivity();
+
+            // If we click the Stats button
         } else if (v.equals(mStatsBtn)) {
-            // We start the Stats activity
-            Intent statsActivityIntent = new Intent(MainActivity.this, StatsActivity.class);
-            startActivity(statsActivityIntent);
+            startStatsActivity();
         }
+    }
+
+    private void startStatsActivity() {
+        // We start the Stats activity
+        Intent statsActivityIntent = new Intent(MainActivity.this, StatsActivity.class);
+        startActivity(statsActivityIntent);
+    }
+
+    private void startHistoryActivity() {
+        // We start the History activity
+        Intent historyActivityIntent = new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(historyActivityIntent);
+    }
+
+    private void displayCommentBox() {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View commentBoxView = factory.inflate(R.layout.activity_main_my_comment_box, null);
+        final EditText myComment = (EditText) commentBoxView.findViewById(R.id.activity_main_my_comment_input);
+
+        // If a comment has been entered today, we display it, if not, we display the hint
+        MoodStore todayInfo = mMoodDao.getTodaysMood(this);
+        if (todayInfo != null && TextUtils.isEmpty(todayInfo.getComment())) {
+            myComment.setHint(todayInfo.getComment());
+        }
+
+        // We open the Dialog box to enter the comment
+        AlertDialog.Builder commentBox = new AlertDialog.Builder(MainActivity.this);
+        commentBox.setView(commentBoxView);
+        commentBox.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
+            public void onClick(DialogInterface dialog, int which) {
+                String comment = myComment.getText().toString();
+                // If a comment has been specified and we touch "Add", we update the stored mood
+                mMoodDao.updateTodaysComment(MainActivity.this, comment);
+            }
+        });
+        commentBox.setNegativeButton("Cancel", null);
+        commentBox.show();
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -140,17 +160,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
 
+            MoodStore todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
+
             // Swipe down
-            if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood("down", todayInfo.getMood()));
+            if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
             // Swipe up
-            else todayInfo.setMood(Mood.changeMood("up", todayInfo.getMood()));
+            else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
 
             updateView(todayInfo.getMood());
-
-            String currentComment = todayInfo.getComment();
-            String toBeStored = TimeUtils.getDate() + "_" + todayInfo.getMood() + "_" + currentComment;
-            mMoodDao.storePreferences(MainActivity.this, TimeUtils.getDate(), toBeStored);
-            todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
+            mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
 
             return true;
         }

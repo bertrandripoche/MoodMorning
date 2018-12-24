@@ -19,18 +19,16 @@ public enum Mood {
         this.historyWidth = historyWidth;
     }
 
-    /*
-    Method returning the new mood to display after swiping up or down the main screen
-    PARAM :
-    - direction : "up" or "down"
-    - currentMood
+    /**
+     * Method returning the new mood to display after swiping up or down the main screen
+     * @param direction : "up" or "down"
+     * @param currentMood : current mood
      */
-    public static Mood changeMood(String direction, Mood currentMood) {
+    public static Mood changeMood(Direction direction, Mood currentMood) {
        int i = currentMood.ordinal();
-       if (direction.equalsIgnoreCase("up") && i != 4) i++;
-       if (direction.equalsIgnoreCase("down") && i != 0) i--;
-       Mood newMood = Mood.values()[i];
-       return newMood;
+       if (direction == Direction.UP && i != 4) i++;
+       if (direction == Direction.DOWN && i != 0) i--;
+       return Mood.values()[i];
     }
 
     public String getColor() {

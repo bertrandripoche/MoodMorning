@@ -1,9 +1,8 @@
 package com.depuisletemps.moodmorning.model;
 
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
-
-public class MoodStore extends AppCompatActivity {
+public class MoodStore {
     private String date;
     private Mood mood;
     private String comment;
@@ -30,6 +29,14 @@ public class MoodStore extends AppCompatActivity {
         this.mood = mood;
     }
 
+    public void setComment(String comment) {
+        if (!TextUtils.isEmpty(comment)) {
+            this.comment = comment;
+        } else {
+            this.comment = "";
+        }
+    }
+
     /*
      Would be useful if we want to check the 7 last moods instead of the moods of the 7 last days
      public TreeMap<String, String> getAllDatesSorted(Context context) {
@@ -38,7 +45,7 @@ public class MoodStore extends AppCompatActivity {
         TreeMap<String, String> allPrefsSorted = new TreeMap<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                // blablabla
+                // logic here
                 return 0;
             }
         });

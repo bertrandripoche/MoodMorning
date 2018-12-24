@@ -40,14 +40,6 @@ public class HistoryActivity extends AppCompatActivity {
     private ImageButton mCommentLine6;
     private ImageButton mCommentLine7;
 
-    private MoodStore mMood1;
-    private MoodStore mMood2;
-    private MoodStore mMood3;
-    private MoodStore mMood4;
-    private MoodStore mMood5;
-    private MoodStore mMood6;
-    private MoodStore mMood7;
-
     String[] last7Days = TimeUtils.getLast7Days();
 
     @Override
@@ -57,28 +49,28 @@ public class HistoryActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-        mLine1= (LinearLayout) findViewById(R.id.activity_history_line_1);
-        mLine2= (LinearLayout) findViewById(R.id.activity_history_line_2);
-        mLine3= (LinearLayout) findViewById(R.id.activity_history_line_3);
-        mLine4= (LinearLayout) findViewById(R.id.activity_history_line_4);
-        mLine5= (LinearLayout) findViewById(R.id.activity_history_line_5);
-        mLine6= (LinearLayout) findViewById(R.id.activity_history_line_6);
-        mLine7= (LinearLayout) findViewById(R.id.activity_history_line_7);
+        mLine1= findViewById(R.id.activity_history_line_1);
+        mLine2= findViewById(R.id.activity_history_line_2);
+        mLine3= findViewById(R.id.activity_history_line_3);
+        mLine4= findViewById(R.id.activity_history_line_4);
+        mLine5= findViewById(R.id.activity_history_line_5);
+        mLine6= findViewById(R.id.activity_history_line_6);
+        mLine7= findViewById(R.id.activity_history_line_7);
 
-        mCommentLine1= (ImageButton) findViewById(R.id.activity_history__comment_1);
-        mCommentLine2= (ImageButton) findViewById(R.id.activity_history__comment_2);
-        mCommentLine3= (ImageButton) findViewById(R.id.activity_history__comment_3);
-        mCommentLine4= (ImageButton) findViewById(R.id.activity_history__comment_4);
-        mCommentLine5= (ImageButton) findViewById(R.id.activity_history__comment_5);
-        mCommentLine6= (ImageButton) findViewById(R.id.activity_history__comment_6);
-        mCommentLine7= (ImageButton) findViewById(R.id.activity_history__comment_7);
+        mCommentLine1= findViewById(R.id.activity_history__comment_1);
+        mCommentLine2= findViewById(R.id.activity_history__comment_2);
+        mCommentLine3= findViewById(R.id.activity_history__comment_3);
+        mCommentLine4= findViewById(R.id.activity_history__comment_4);
+        mCommentLine5= findViewById(R.id.activity_history__comment_5);
+        mCommentLine6= findViewById(R.id.activity_history__comment_6);
+        mCommentLine7= findViewById(R.id.activity_history__comment_7);
 
         LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
         ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
 
         for (int i = 0; i < last7Days.length; i++) {
             // We check if we have a stored mood for the accurate day
-            if (mMoodDao.getPreferences(this, last7Days[i]) != "%") {
+            if (!mMoodDao.getPreferences(this, last7Days[i]).equals("%")) {
                 final MoodStore dayInfo = mMoodDao.getMoodStoreFromRecord(mMoodDao.getPreferences(this, last7Days[i]));
 
                 // We change the background according to the mood of the day
