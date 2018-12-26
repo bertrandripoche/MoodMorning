@@ -1,6 +1,5 @@
 package com.depuisletemps.moodmorning.controller;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depuisletemps.moodmorning.R;
-import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
 import com.depuisletemps.moodmorning.utils.TimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -24,21 +22,12 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 public class HistoryActivity extends AppCompatActivity {
     private MoodDao mMoodDao  = new MoodDao();
 
-    private LinearLayout mLine1;
     private LinearLayout mLine2;
-    private LinearLayout mLine3;
-    private LinearLayout mLine4;
     private LinearLayout mLine5;
-    private LinearLayout mLine6;
     private LinearLayout mLine7;
 
-    private ImageButton mCommentLine1;
     private ImageButton mCommentLine2;
-    private ImageButton mCommentLine3;
-    private ImageButton mCommentLine4;
-    private ImageButton mCommentLine5;
     private ImageButton mCommentLine6;
-    private ImageButton mCommentLine7;
 
     String[] last7Days = TimeUtils.getLast7Days();
 
@@ -49,24 +38,24 @@ public class HistoryActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-        mLine1= findViewById(R.id.activity_history_line_1);
+        LinearLayout line1 = findViewById(R.id.activity_history_line_1);
         mLine2= findViewById(R.id.activity_history_line_2);
-        mLine3= findViewById(R.id.activity_history_line_3);
-        mLine4= findViewById(R.id.activity_history_line_4);
+        LinearLayout line3 = findViewById(R.id.activity_history_line_3);
+        LinearLayout line4 = findViewById(R.id.activity_history_line_4);
         mLine5= findViewById(R.id.activity_history_line_5);
-        mLine6= findViewById(R.id.activity_history_line_6);
+        LinearLayout line6 = findViewById(R.id.activity_history_line_6);
         mLine7= findViewById(R.id.activity_history_line_7);
 
-        mCommentLine1= findViewById(R.id.activity_history__comment_1);
+        ImageButton commentLine1 = findViewById(R.id.activity_history__comment_1);
         mCommentLine2= findViewById(R.id.activity_history__comment_2);
-        mCommentLine3= findViewById(R.id.activity_history__comment_3);
-        mCommentLine4= findViewById(R.id.activity_history__comment_4);
-        mCommentLine5= findViewById(R.id.activity_history__comment_5);
+        ImageButton commentLine3 = findViewById(R.id.activity_history__comment_3);
+        ImageButton commentLine4 = findViewById(R.id.activity_history__comment_4);
+        ImageButton commentLine5 = findViewById(R.id.activity_history__comment_5);
         mCommentLine6= findViewById(R.id.activity_history__comment_6);
-        mCommentLine7= findViewById(R.id.activity_history__comment_7);
+        ImageButton commentLine7 = findViewById(R.id.activity_history__comment_7);
 
-        LinearLayout[] tabLine = {mLine1, mLine2, mLine3, mLine4, mLine5, mLine6, mLine7};
-        ImageView[] tabComment = {mCommentLine1, mCommentLine2, mCommentLine3, mCommentLine4, mCommentLine5, mCommentLine6, mCommentLine7};
+        LinearLayout[] tabLine = {line1, mLine2, line3, line4, mLine5, line6, mLine7};
+        ImageView[] tabComment = {commentLine1, mCommentLine2, commentLine3, commentLine4, commentLine5, mCommentLine6, commentLine7};
 
         for (int i = 0; i < last7Days.length; i++) {
             // We check if we have a stored mood for the accurate day
@@ -87,7 +76,7 @@ public class HistoryActivity extends AppCompatActivity {
                             View layout = inflater.inflate(R.layout.activity_history_my_comment_toast,
                                     (ViewGroup) findViewById(R.id.activity_history_comment_box_toast));
 
-                            TextView text = (TextView) layout.findViewById(R.id.activity_history_comment_text_toast);
+                            TextView text = layout.findViewById(R.id.activity_history_comment_text_toast);
                             text.setText(dayInfo.getComment());
 
                             Toast toast = new Toast(getApplicationContext());

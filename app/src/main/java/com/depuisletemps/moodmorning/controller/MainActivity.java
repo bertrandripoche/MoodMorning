@@ -1,5 +1,6 @@
 package com.depuisletemps.moodmorning.controller;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -130,12 +131,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void displayCommentBox() {
         LayoutInflater factory = LayoutInflater.from(this);
-        final View commentBoxView = factory.inflate(R.layout.activity_main_my_comment_box, null);
-        final EditText myComment = (EditText) commentBoxView.findViewById(R.id.activity_main_my_comment_input);
+        @SuppressLint("InflateParams") final View commentBoxView = factory.inflate(R.layout.activity_main_my_comment_box, null);
+        final EditText myComment = commentBoxView.findViewById(R.id.activity_main_my_comment_input);
 
         // If a comment has been entered today, we display it, if not, we display the hint
         MoodStore todayInfo = mMoodDao.getTodaysMood(this);
-        if (todayInfo != null && TextUtils.isEmpty(todayInfo.getComment())) {
+        if (todayInfo != null && !TextUtils.isEmpty(todayInfo.getComment())) {
             myComment.setHint(todayInfo.getComment());
         }
 
@@ -162,13 +163,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             MoodStore todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
 
-            // Swipe down
-            if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
-            // Swipe up
-            else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
-
-            updateView(todayInfo.getMood());
-            mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
+            if (todayInfo.getMood() != null) {
+                // Swipe down
+                if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
+                // Swipe up
+                else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
+                updateView(todayInfo.getMood());
+                mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
+            }
 
             return true;
         }

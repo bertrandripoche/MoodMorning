@@ -35,11 +35,8 @@ public class StatsActivity extends AppCompatActivity {
         for (Map.Entry<String, ?> entry : allMoods.entrySet()) {
             String record = (String) entry.getValue();
             MoodStore moodStore = mMoodDao.getMoodStoreFromRecord(record);
-            if (moodsDataForPieChart.get(moodStore.getMood()) == null) {
-                moodsDataForPieChart.put(moodStore.getMood(), 1);
-            } else {
-                moodsDataForPieChart.put(moodStore.getMood(), moodsDataForPieChart.get(moodStore.getMood()) + 1);
-            }
+            if (moodsDataForPieChart.get(moodStore.getMood()) == null)  moodsDataForPieChart.put(moodStore.getMood(), 1);
+            else moodsDataForPieChart.put(moodStore.getMood(), moodsDataForPieChart.get(moodStore.getMood()) + 1);
         }
 
         // From the data aggregated, we create each slice of "chart pie"

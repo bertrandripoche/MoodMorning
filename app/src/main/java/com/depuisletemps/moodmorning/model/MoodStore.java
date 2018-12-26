@@ -8,9 +8,11 @@ public class MoodStore {
     private String comment;
 
     public MoodStore(String date, Mood mood, String comment) {
-        this.date = date;
-        this.mood = mood;
-        this.comment = comment;
+        if (date != null && mood != null) {
+            this.date = date;
+            this.mood = mood;
+            this.comment = comment;
+        }
     }
 
     public String getDate() {
