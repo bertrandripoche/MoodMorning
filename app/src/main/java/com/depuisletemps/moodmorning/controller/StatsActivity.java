@@ -32,11 +32,19 @@ public class StatsActivity extends AppCompatActivity {
         // Data aggregation to populate the chart
         Map<String, ?> allMoods = mMoodDao.getAllMoods(this);
         Map<Mood, Integer> moodsDataForPieChart = new HashMap<>();
+        // We initialize every "mood data" to 0 occurrence
+        for(Mood mood : Mood.values()) {
+            moodsDataForPieChart.put(mood, 0);
+        }
+
         for (Map.Entry<String, ?> entry : allMoods.entrySet()) {
             String record = (String) entry.getValue();
             MoodStore moodStore = mMoodDao.getMoodStoreFromRecord(record);
-            if (moodsDataForPieChart.get(moodStore.getMood()) == null)  moodsDataForPieChart.put(moodStore.getMood(), 1);
-            else moodsDataForPieChart.put(moodStore.getMood(), moodsDataForPieChart.get(moodStore.getMood()) + 1);
+
+            assert moodStore != null;
+            Mood mood = moodStore.getMood();
+            int currentMoodOccurrences = moodsDataForPieChart.get(mood);
+            moodsDataForPieChart.put(moodStore.getMood(), currentMoodOccurrences);
         }
 
         // From the data aggregated, we create each slice of "chart pie"

@@ -86,6 +86,7 @@ class MoodDao {
      * This method returns the object MoodStore from a stored record
      * @param record : our serialized String representing our MoodStore
      */
+    @Nullable
     MoodStore getMoodStoreFromRecord(String record) {
         MoodStore moodStore = null;
         String[] recordArray = record.split("_", 3);

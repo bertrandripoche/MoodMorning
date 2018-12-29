@@ -31,10 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mHistoryBtn;
     private ImageButton mStatsBtn;
 
- //   private MoodStore todayInfo;
-
     private GestureDetectorCompat mDetector;
-
     private MoodDao mMoodDao = new MoodDao();
 
     @Override
@@ -84,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateView(todayInfo.getMood());
     }
 
+    /**
+     * This method return the default MoodStore for today
+     */
     @NonNull
     private MoodStore getDefaultMoodStore() {
         MoodStore todayInfo;
@@ -91,10 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return todayInfo;
     }
 
-    /*
-    This method :
-    - update the screen accordingly to match the required mood
-    PARAM : Mood mood which is the mood that we want to have set
+    /**
+     * This method update the screen accordingly to match the required mood
+     * @param mood : the mood that we want to have reflected on the screen
      */
     public void updateView(Mood mood) {
         mImageViewMood.setBackgroundColor(Color.parseColor(mood.getColor()));
@@ -102,6 +101,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mImageViewMood.setImageResource(resID);
     }
 
+    // To manage the swipe moves
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+
+            MoodStore todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
+
+            assert todayInfo != null;
+            if (todayInfo.getMood() != null)
+            // Swipe down
+            {
+                if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
+                    // Swipe up
+                else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
+            }
+            updateView(todayInfo.getMood());
+            mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
+
+            return true;
+        }
+    }
+
+    // To manage the clicks on the buttons
     public void onClick(View v) {
         // If we click the Comment button
         if (v.equals(mCommentBtn)) {
@@ -153,26 +176,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         commentBox.setNegativeButton("Cancel", null);
         commentBox.show();
-    }
-
-    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2,
-                               float velocityX, float velocityY) {
-
-            MoodStore todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
-
-            if (todayInfo.getMood() != null) {
-                // Swipe down
-                if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
-                // Swipe up
-                else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
-                updateView(todayInfo.getMood());
-                mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
-            }
-
-            return true;
-        }
     }
 }
