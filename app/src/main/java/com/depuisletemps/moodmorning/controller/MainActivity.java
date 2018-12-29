@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton mStatsBtn;
 
     private GestureDetectorCompat mDetector;
-    private MoodDao mMoodDao = new MoodDao();
+    private final MoodDao mMoodDao = new MoodDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * This method update the screen accordingly to match the required mood
      * @param mood : the mood that we want to have reflected on the screen
      */
-    public void updateView(Mood mood) {
+    private void updateView(Mood mood) {
         mImageViewMood.setBackgroundColor(Color.parseColor(mood.getColor()));
         int resID = getResources().getIdentifier(mood.getFileName(), "drawable", getPackageName());
         mImageViewMood.setImageResource(resID);
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Swipe up
                 else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
             }
+            assert todayInfo.getMood() != null;
             updateView(todayInfo.getMood());
             mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
 
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // If a comment has been entered today, we display it, if not, we display the hint
         MoodStore todayInfo = mMoodDao.getTodaysMood(this);
-        if (todayInfo != null && !TextUtils.isEmpty(todayInfo.getComment())) {
+        if (todayInfo != null && !todayInfo.getComment().equals("null") && !TextUtils.isEmpty(todayInfo.getComment())) {
             myComment.setHint(todayInfo.getComment());
         }
 

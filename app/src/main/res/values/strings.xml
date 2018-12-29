@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MoodMorning</string>
+    <string name="week">Il y a 1 semaine</string>
+    <string name="six_days">Il y a 6 jours</string>
+    <string name="five_days">Il y a 5 jours</string>
+    <string name="four_days">Il y a 4 jours</string>
+    <string name="three_days">Il y a 3 jours</string>
+    <string name="two_days">Avant-hier</string>
+    <string name="yesterday">Hier</string>
+    <string name="comment_icon">Comment icon</string>
+    <string name="comment_placeholder">My comment…</string>
+    <string name="comment_box_title">About my mood</string>
 </resources>

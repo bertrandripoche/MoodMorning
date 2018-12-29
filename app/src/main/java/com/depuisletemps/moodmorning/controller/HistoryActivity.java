@@ -3,6 +3,7 @@ package com.depuisletemps.moodmorning.controller;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,8 +61,9 @@ public class HistoryActivity extends AppCompatActivity {
                 tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
                 layoutParams.weight = dayInfo.getMood().getHistoryWidth();
+
                 // If existing, we print the comment via a Toast
-                if (!dayInfo.getComment().equals("")) {
+                if (!TextUtils.isEmpty(dayInfo.getComment()) && !dayInfo.getComment().equals("null")) {
                     tabComment[i].setVisibility(View.VISIBLE);
                     tabComment[i].setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -84,5 +86,4 @@ public class HistoryActivity extends AppCompatActivity {
             }
         }
     }
-
 }
