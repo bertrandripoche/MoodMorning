@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">MoodMorning</string>
+        <string name="week">Il y a 1 semaine</string>
+        <string name="six_days">Il y a 6 jours</string>
+        <string name="five_days">Il y a 5 jours</string>
+        <string name="four_days">Il y a 4 jours</string>
+        <string name="three_days">Il y a 3 jours</string>
+        <string name="two_days">Avant-hier</string>
+        <string name="yesterday">Hier</string>
+        <string name="comment_icon">Icône commentaire</string>
+        <string name="comment_placeholder">Mon commentaire…</string>
+        <string name="comment_box_title">L\'humeur du jour</string>
+        <string name="comment_box_positive_btn">Ajouter</string>
+</resources>

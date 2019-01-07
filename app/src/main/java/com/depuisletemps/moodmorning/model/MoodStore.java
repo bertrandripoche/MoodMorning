@@ -3,20 +3,14 @@ package com.depuisletemps.moodmorning.model;
 import android.text.TextUtils;
 
 public class MoodStore {
-    private String date;
     private Mood mood;
     private String comment;
 
-    public MoodStore(String date, Mood mood, String comment) {
-        if (date != null && mood != null) {
-            this.date = date;
+    public MoodStore(Mood mood, String comment) {
+        if (mood != null) {
             this.mood = mood;
             this.comment = comment;
         }
-    }
-
-    public String getDate() {
-        return date;
     }
 
     public Mood getMood() {

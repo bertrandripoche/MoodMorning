@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -16,11 +17,13 @@
         android:text="@string/comment_box_title"/>
 
     <EditText
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:id="@+id/activity_main_my_comment_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:hint="@string/comment_placeholder"/>
+        android:autofillHints=""
+        android:hint="@string/comment_placeholder"
+        tools:ignore="UnusedAttribute" />
     
 </LinearLayout>

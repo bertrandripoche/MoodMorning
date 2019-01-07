@@ -22,7 +22,6 @@ import com.depuisletemps.moodmorning.R;
 import com.depuisletemps.moodmorning.model.Direction;
 import com.depuisletemps.moodmorning.model.Mood;
 import com.depuisletemps.moodmorning.model.MoodStore;
-import com.depuisletemps.moodmorning.utils.TimeUtils;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,14 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mStatsBtn.setOnClickListener(this);
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
-
-        // As soon as someone opens the app, we record the date, comment, mood (or we get the existing ones), and update the scree accordingly
-        processCurrentMood();
     }
 
     @Override
     public void onResume(){
         super.onResume();
+        // As soon as someone opens the app, we record the date, comment, mood (or we get the existing ones), and update the scree accordingly
         processCurrentMood();
     }
 
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @NonNull
     private MoodStore getDefaultMoodStore() {
         MoodStore todayInfo;
-        todayInfo = new MoodStore(TimeUtils.getDate(), Mood.HAPPY, null);
+        todayInfo = new MoodStore(Mood.HAPPY, null);
         return todayInfo;
     }
 
@@ -109,18 +106,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             MoodStore todayInfo = mMoodDao.getTodaysMood(MainActivity.this);
 
-            assert todayInfo != null;
-            if (todayInfo.getMood() != null)
-            // Swipe down
-            {
-                if (event1.getY() < event2.getY()) todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
-                    // Swipe up
-                else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
+            if (todayInfo != null) {
+                if (todayInfo.getMood() != null)
+                // Swipe down
+                {
+                    if (event1.getY() < event2.getY())
+                        todayInfo.setMood(Mood.changeMood(Direction.DOWN, todayInfo.getMood()));
+                        // Swipe up
+                    else todayInfo.setMood(Mood.changeMood(Direction.UP, todayInfo.getMood()));
+                }
+                if (todayInfo.getMood() != null) {
+                    updateView(todayInfo.getMood());
+                    mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
+                }
             }
-            assert todayInfo.getMood() != null;
-            updateView(todayInfo.getMood());
-            mMoodDao.updateTodaysMood(MainActivity.this, todayInfo.getMood());
-
             return true;
         }
     }
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // We open the Dialog box to enter the comment
         AlertDialog.Builder commentBox = new AlertDialog.Builder(MainActivity.this);
         commentBox.setView(commentBoxView);
-        commentBox.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        commentBox.setPositiveButton(R.string.comment_box_positive_btn, new DialogInterface.OnClickListener() {
             // If "Add" is touched and comment not empty, we set the new record with date, mood, comment
             public void onClick(DialogInterface dialog, int which) {
                 String comment = myComment.getText().toString();
@@ -175,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mMoodDao.updateTodaysComment(MainActivity.this, comment);
             }
         });
-        commentBox.setNegativeButton("Cancel", null);
+        commentBox.setNegativeButton(android.R.string.cancel, null);
         commentBox.show();
     }
 }

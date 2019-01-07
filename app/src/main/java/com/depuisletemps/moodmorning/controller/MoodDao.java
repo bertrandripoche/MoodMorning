@@ -12,6 +12,7 @@ import java.util.Map;
 
 class MoodDao {
     private static final String PREFS_NAME = "mPreferences";
+    private static final String SEPARATOR = "_";
 
     /**
      * This method stores the information of the day
@@ -21,7 +22,7 @@ class MoodDao {
         SharedPreferences mPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPreferences.edit();
 
-        String toBeStored = TimeUtils.getDate() + "_" + moodStore.getMood() + "_" + moodStore.getComment();
+        String toBeStored = moodStore.getMood() + SEPARATOR + moodStore.getComment();
         editor.putString(TimeUtils.getDate(), toBeStored);
         editor.apply();
     }
@@ -29,6 +30,7 @@ class MoodDao {
     /**
      * This method returns the String stored for the expected day
      * @param key representing the date YYYY-MM-DD for which we are looking for a stored data
+     * @return the serialized string representing a moodstore saved in preferences for specified key
      */
     String getPreferences(Context context, String key) {
         SharedPreferences mPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -36,7 +38,7 @@ class MoodDao {
     }
 
     /**
-     * @return Moodstore which represents the object MoodStore for today if existing
+     * @return the object MoodStore for today if existing
      */
     @Nullable
     MoodStore getTodaysMood(Context context) {
@@ -75,7 +77,7 @@ class MoodDao {
     }
 
     /**
-     * This method returns all the records stored in SharePreferences
+     * @return all the records stored in SharePreferences
      */
     Map<String, ?> getAllMoods(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -85,20 +87,20 @@ class MoodDao {
     /**
      * This method returns the object MoodStore from a stored record
      * @param record : our serialized String representing our MoodStore
+     * @return the MoodStore matching the serialized record
      */
     @Nullable
     MoodStore getMoodStoreFromRecord(String record) {
         MoodStore moodStore = null;
-        String[] recordArray = record.split("_", 3);
+        String[] recordArray = record.split(SEPARATOR, 2);
 
         int recordArraySize = recordArray.length;
 
-        if (recordArraySize == 3) {
-            String date = recordArray[0];
-            Mood mood = Mood.valueOf(recordArray[1]);
-            String comment = recordArray[2];
+        if (recordArraySize == 2) {
+            Mood mood = Mood.valueOf(recordArray[0]);
+            String comment = recordArray[1];
 
-            moodStore = new MoodStore(date, mood, comment);
+            moodStore = new MoodStore(mood, comment);
         }
         return moodStore;
     }

@@ -21,9 +21,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 
 public class HistoryActivity extends AppCompatActivity {
-    private MoodDao mMoodDao  = new MoodDao();
+    private final MoodDao mMoodDao  = new MoodDao();
 
-    String[] last7Days = TimeUtils.getLast7Days();
+    private final String[] last7Days = TimeUtils.getLast7Days();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,31 +57,32 @@ public class HistoryActivity extends AppCompatActivity {
                 final MoodStore dayInfo = mMoodDao.getMoodStoreFromRecord(mMoodDao.getPreferences(this, last7Days[i]));
 
                 // We change the background according to the mood of the day
-                assert dayInfo != null;
-                tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
-                layoutParams.weight = dayInfo.getMood().getHistoryWidth();
+                if (dayInfo != null) {
+                    tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
+                    layoutParams.weight = dayInfo.getMood().getHistoryWidth();
 
-                // If existing, we print the comment via a Toast
-                if (!TextUtils.isEmpty(dayInfo.getComment()) && !dayInfo.getComment().equals("null")) {
-                    tabComment[i].setVisibility(View.VISIBLE);
-                    tabComment[i].setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LayoutInflater inflater = getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.activity_history_my_comment_toast,
-                                    (ViewGroup) findViewById(R.id.activity_history_comment_box_toast));
+                    // If existing, we print the comment via a Toast
+                    if (!TextUtils.isEmpty(dayInfo.getComment()) && !dayInfo.getComment().equals("null")) {
+                        tabComment[i].setVisibility(View.VISIBLE);
+                        tabComment[i].setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.activity_history_my_comment_toast,
+                                        (ViewGroup) findViewById(R.id.activity_history_comment_box_toast));
 
-                            TextView text = layout.findViewById(R.id.activity_history_comment_text_toast);
-                            text.setText(dayInfo.getComment());
+                                TextView text = layout.findViewById(R.id.activity_history_comment_text_toast);
+                                text.setText(dayInfo.getComment());
 
-                            Toast toast = new Toast(getApplicationContext());
-                            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 10);
-                            toast.setDuration(Toast.LENGTH_LONG);
-                            toast.setView(layout);
-                            toast.show();
-                        }
-                    });
+                                Toast toast = new Toast(getApplicationContext());
+                                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 10);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
+                            }
+                        });
+                    }
                 }
             }
         }

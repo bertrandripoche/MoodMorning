@@ -6,7 +6,14 @@
       <w>hier</w>
       <w>jours</w>
       <w>moodmorning</w>
+      <w>moodstore</w>
       <w>semaine</w>
+      <w>smileybored</w>
+      <w>smileyglad</w>
+      <w>smileyhappy</w>
+      <w>smileyregular</w>
+      <w>smileysad</w>
+      <w>todays</w>
     </words>
   </dictionary>
 </component>

@@ -18,7 +18,7 @@ import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class StatsActivity extends AppCompatActivity {
-    private MoodDao mMoodDao = new MoodDao();
+    private final MoodDao mMoodDao = new MoodDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class StatsActivity extends AppCompatActivity {
 
         // Data aggregation to populate the chart
         Map<String, ?> allMoods = mMoodDao.getAllMoods(this);
-        HashMap<Mood, Integer> moodsDataForPieChart = new HashMap<>();
+        Map<Mood, Integer> moodsDataForPieChart = new HashMap<>();
         // We initialize every "mood data" to 0 occurrence
         for(Mood mood : Mood.values()) {
             moodsDataForPieChart.put(mood, 0);
@@ -40,12 +40,15 @@ public class StatsActivity extends AppCompatActivity {
         for (Map.Entry<String, ?> entry : allMoods.entrySet()) {
             String record = (String) entry.getValue();
             MoodStore moodStore = mMoodDao.getMoodStoreFromRecord(record);
-
-            assert moodStore != null;
-            Mood mood = moodStore.getMood();
-            if (mood != null) {
-                int currentMoodOccurrences = moodsDataForPieChart.get(mood) + 1;
-                moodsDataForPieChart.put(moodStore.getMood(), currentMoodOccurrences);
+            if (moodStore != null) {
+                Mood mood = moodStore.getMood();
+                if (mood != null) {
+                    Integer moodCount = moodsDataForPieChart.get(mood);
+                    if (moodCount != null) {
+                        int currentMoodOccurrences = moodCount + 1;
+                        moodsDataForPieChart.put(moodStore.getMood(), currentMoodOccurrences);
+                    }
+                }
             }
         }
 
@@ -58,6 +61,5 @@ public class StatsActivity extends AppCompatActivity {
         PieChartData pieChartData = new PieChartData(pieData);
         pieChartData.setHasLabels(true).setHasCenterCircle(true).setCenterText1("Me and").setCenterCircleScale(.4f).setCenterText1FontSize(15).setCenterText2("my moods").setCenterText2FontSize(15);
         pieChartView.setPieChartData(pieChartData);
-
     }
 }
