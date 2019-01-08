@@ -23,7 +23,21 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 public class HistoryActivity extends AppCompatActivity {
     private final MoodDao mMoodDao  = new MoodDao();
 
-    private final String[] last7Days = TimeUtils.getLast7Days();
+    LinearLayout line1;
+    LinearLayout line2;
+    LinearLayout line3;
+    LinearLayout line4;
+    LinearLayout line5;
+    LinearLayout line6;
+    LinearLayout line7;
+
+    ImageButton commentLine1;
+    ImageButton commentLine2;
+    ImageButton commentLine3;
+    ImageButton commentLine4;
+    ImageButton commentLine5;
+    ImageButton commentLine6;
+    ImageButton commentLine7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +46,32 @@ public class HistoryActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-        LinearLayout line1 = findViewById(R.id.activity_history_line_1);
-        LinearLayout line2 = findViewById(R.id.activity_history_line_2);
-        LinearLayout line3 = findViewById(R.id.activity_history_line_3);
-        LinearLayout line4 = findViewById(R.id.activity_history_line_4);
-        LinearLayout line5 = findViewById(R.id.activity_history_line_5);
-        LinearLayout line6 = findViewById(R.id.activity_history_line_6);
-        LinearLayout line7 = findViewById(R.id.activity_history_line_7);
+         line1 = findViewById(R.id.activity_history_line_1);
+         line2 = findViewById(R.id.activity_history_line_2);
+         line3 = findViewById(R.id.activity_history_line_3);
+         line4 = findViewById(R.id.activity_history_line_4);
+         line5 = findViewById(R.id.activity_history_line_5);
+         line6 = findViewById(R.id.activity_history_line_6);
+         line7 = findViewById(R.id.activity_history_line_7);
 
-        ImageButton commentLine1 = findViewById(R.id.activity_history__comment_1);
-        ImageButton commentLine2 = findViewById(R.id.activity_history__comment_2);
-        ImageButton commentLine3 = findViewById(R.id.activity_history__comment_3);
-        ImageButton commentLine4 = findViewById(R.id.activity_history__comment_4);
-        ImageButton commentLine5 = findViewById(R.id.activity_history__comment_5);
-        ImageButton commentLine6 = findViewById(R.id.activity_history__comment_6);
-        ImageButton commentLine7 = findViewById(R.id.activity_history__comment_7);
+         commentLine1 = findViewById(R.id.activity_history__comment_1);
+         commentLine2 = findViewById(R.id.activity_history__comment_2);
+         commentLine3 = findViewById(R.id.activity_history__comment_3);
+         commentLine4 = findViewById(R.id.activity_history__comment_4);
+         commentLine5 = findViewById(R.id.activity_history__comment_5);
+         commentLine6 = findViewById(R.id.activity_history__comment_6);
+         commentLine7 = findViewById(R.id.activity_history__comment_7);
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        // As soon as someone opens the app, we get the accurate mood history
+        moodHistory();
+    }
+
+    private void moodHistory() {
+        final String[] last7Days = TimeUtils.getLast7Days();
         LinearLayout[] tabLine = {line1, line2, line3, line4, line5, line6, line7};
         ImageView[] tabComment = {commentLine1, commentLine2, commentLine3, commentLine4, commentLine5, commentLine6, commentLine7};
 
