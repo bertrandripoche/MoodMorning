@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
         <string name="app_name">MoodMorning</string>
+        <string name="nothing">null</string>
         <string name="week">Il y a 1 semaine</string>
         <string name="six_days">Il y a 6 jours</string>
         <string name="five_days">Il y a 5 jours</string>

@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // If a comment has been entered today, we display it, if not, we display the hint
         MoodStore todayInfo = mMoodDao.getTodaysMood(this);
-        if (todayInfo != null && !todayInfo.getComment().equals("null") && !TextUtils.isEmpty(todayInfo.getComment())) {
+        if (todayInfo != null && !todayInfo.getComment().equals(getString(R.string.nothing)) && !TextUtils.isEmpty(todayInfo.getComment())) {
             myComment.setHint(todayInfo.getComment());
         }
 

@@ -87,7 +87,7 @@ public class HistoryActivity extends AppCompatActivity {
                     layoutParams.weight = dayInfo.getMood().getHistoryWidth();
 
                     // If existing, we print the comment via a Toast
-                    if (!TextUtils.isEmpty(dayInfo.getComment()) && !dayInfo.getComment().equals("null")) {
+                    if (!TextUtils.isEmpty(dayInfo.getComment()) && !dayInfo.getComment().equals(getString(R.string.nothing))) {
                         tabComment[i].setVisibility(View.VISIBLE);
                         tabComment[i].setOnClickListener(new View.OnClickListener() {
                             @Override
