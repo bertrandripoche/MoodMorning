@@ -42,30 +42,30 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-
         AndroidThreeTen.init(this);
-
-         line1 = findViewById(R.id.activity_history_line_1);
-         line2 = findViewById(R.id.activity_history_line_2);
-         line3 = findViewById(R.id.activity_history_line_3);
-         line4 = findViewById(R.id.activity_history_line_4);
-         line5 = findViewById(R.id.activity_history_line_5);
-         line6 = findViewById(R.id.activity_history_line_6);
-         line7 = findViewById(R.id.activity_history_line_7);
-
-         commentLine1 = findViewById(R.id.activity_history__comment_1);
-         commentLine2 = findViewById(R.id.activity_history__comment_2);
-         commentLine3 = findViewById(R.id.activity_history__comment_3);
-         commentLine4 = findViewById(R.id.activity_history__comment_4);
-         commentLine5 = findViewById(R.id.activity_history__comment_5);
-         commentLine6 = findViewById(R.id.activity_history__comment_6);
-         commentLine7 = findViewById(R.id.activity_history__comment_7);
     }
 
     @Override
     public void onResume(){
         super.onResume();
+        setContentView(R.layout.activity_history);
+
+        line1 = findViewById(R.id.activity_history_line_1);
+        line2 = findViewById(R.id.activity_history_line_2);
+        line3 = findViewById(R.id.activity_history_line_3);
+        line4 = findViewById(R.id.activity_history_line_4);
+        line5 = findViewById(R.id.activity_history_line_5);
+        line6 = findViewById(R.id.activity_history_line_6);
+        line7 = findViewById(R.id.activity_history_line_7);
+
+        commentLine1 = findViewById(R.id.activity_history__comment_1);
+        commentLine2 = findViewById(R.id.activity_history__comment_2);
+        commentLine3 = findViewById(R.id.activity_history__comment_3);
+        commentLine4 = findViewById(R.id.activity_history__comment_4);
+        commentLine5 = findViewById(R.id.activity_history__comment_5);
+        commentLine6 = findViewById(R.id.activity_history__comment_6);
+        commentLine7 = findViewById(R.id.activity_history__comment_7);
+
         // As soon as someone opens the app, we get the accurate mood history
         moodHistory();
     }
