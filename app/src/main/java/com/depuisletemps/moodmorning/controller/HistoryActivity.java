@@ -77,7 +77,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         for (int i = 0; i < last7Days.length; i++) {
             // We check if we have a stored mood for the accurate day
-            if (!mMoodDao.getPreferences(this, last7Days[i]).equals("%")) {
+            if (!TextUtils.isEmpty(mMoodDao.getPreferences(this, last7Days[i]))) {
                 final MoodStore dayInfo = mMoodDao.getMoodStoreFromRecord(mMoodDao.getPreferences(this, last7Days[i]));
 
                 // We change the background according to the mood of the day

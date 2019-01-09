@@ -32,9 +32,10 @@ class MoodDao {
      * @param key representing the date YYYY-MM-DD for which we are looking for a stored data
      * @return the serialized string representing a moodstore saved in preferences for specified key
      */
+    @Nullable
     String getPreferences(Context context, String key) {
         SharedPreferences mPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return mPreferences.getString(key,"%");
+        return mPreferences.getString(key,null);
     }
 
     /**
