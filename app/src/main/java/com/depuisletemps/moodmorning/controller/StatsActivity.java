@@ -59,7 +59,7 @@ public class StatsActivity extends AppCompatActivity {
         }
 
         PieChartData pieChartData = new PieChartData(pieData);
-        pieChartData.setHasLabels(true).setHasCenterCircle(true).setCenterText1("Me and").setCenterCircleScale(.4f).setCenterText1FontSize(15).setCenterText2("my moods").setCenterText2FontSize(15);
+        pieChartData.setHasLabels(true).setHasCenterCircle(true).setCenterText1(getString(R.string.stats_title1)).setCenterCircleScale(.4f).setCenterText1FontSize(15).setCenterText2(getString(R.string.stats_title2)).setCenterText2FontSize(15);
         pieChartView.setPieChartData(pieChartData);
     }
 }

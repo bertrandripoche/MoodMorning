@@ -13,4 +13,6 @@
         <string name="comment_placeholder">Mon commentaire…</string>
         <string name="comment_box_title">L\'humeur du jour</string>
         <string name="comment_box_positive_btn">Ajouter</string>
+        <string name="stats_title1">Moi et</string>
+        <string name="stats_title2">mes humeurs</string>
 </resources>

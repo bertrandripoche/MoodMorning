@@ -12,4 +12,6 @@
     <string name="comment_placeholder">My comment…</string>
     <string name="comment_box_title">About my mood</string>
     <string name="comment_box_positive_btn">Add</string>
+    <string name="stats_title1">Me and</string>
+    <string name="stats_title2">my moods</string>
 </resources>
