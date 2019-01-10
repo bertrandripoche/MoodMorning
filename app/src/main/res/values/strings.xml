@@ -14,4 +14,9 @@
     <string name="comment_box_positive_btn">Add</string>
     <string name="stats_title1">Me and</string>
     <string name="stats_title2">my moods</string>
+    <string name="happy">Happy</string>
+    <string name="glad">Glad</string>
+    <string name="regular">Regular</string>
+    <string name="bored">Bored</string>
+    <string name="sad">Sad</string>
 </resources>

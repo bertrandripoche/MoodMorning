@@ -55,7 +55,9 @@ public class StatsActivity extends AppCompatActivity {
         // From the data aggregated, we create each slice of "chart pie"
         for (Map.Entry<Mood, Integer> entry : moodsDataForPieChart.entrySet()) {
             Mood mood = entry.getKey();
-            pieData.add(new SliceValue(entry.getValue(), Color.parseColor(mood.getColor())).setLabel(mood.toString() + " : " + entry.getValue()));
+            int resID = getResources().getIdentifier(mood.toString().toLowerCase(), "string", getPackageName());
+            String label = getString(resID) + " : " + entry.getValue();
+            pieData.add(new SliceValue(entry.getValue(), Color.parseColor(mood.getColor())).setLabel(label));
         }
 
         PieChartData pieChartData = new PieChartData(pieData);

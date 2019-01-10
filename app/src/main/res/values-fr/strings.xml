@@ -15,4 +15,9 @@
         <string name="comment_box_positive_btn">Ajouter</string>
         <string name="stats_title1">Moi et</string>
         <string name="stats_title2">mes humeurs</string>
+        <string name="happy">Heureux</string>
+        <string name="glad">Content</string>
+        <string name="regular">Normal</string>
+        <string name="bored">Ennuyé</string>
+        <string name="sad">Triste</string>
 </resources>
