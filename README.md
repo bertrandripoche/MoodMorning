@@ -3,10 +3,10 @@ Scholar application
 Its goal is to record daily mood and report the 7 last ones
 
 <h1>Screenshots</h1>
-<img src="readme_material/screenshot1.jpg" width="200">
-<img src="readme_material/screenshot2.jpg" width="200">
-<img src="readme_material/screenshot3.jpg" width="200">
-<img src="readme_material/screenshot4.jpg" width="200">
+<img src="readme_material/screenshot1.png" width="200">
+<img src="readme_material/screenshot2.png" width="200">
+<img src="readme_material/screenshot3.png" width="200">
+<img src="readme_material/screenshot4.png" width="200">
 
 <h1>Motivation</h1>
 This app was part of the mandatory app to realize to achieve the training.<br/>
