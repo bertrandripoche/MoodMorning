@@ -1,6 +1,7 @@
 package com.depuisletemps.moodmorning.controller;
 
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,13 +24,13 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 public class HistoryActivity extends AppCompatActivity {
     private final MoodDao mMoodDao  = new MoodDao();
 
-    LinearLayout line1;
-    LinearLayout line2;
-    LinearLayout line3;
-    LinearLayout line4;
-    LinearLayout line5;
-    LinearLayout line6;
-    LinearLayout line7;
+    ConstraintLayout line1;
+    ConstraintLayout line2;
+    ConstraintLayout line3;
+    ConstraintLayout line4;
+    ConstraintLayout line5;
+    ConstraintLayout line6;
+    ConstraintLayout line7;
 
     ImageButton commentLine1;
     ImageButton commentLine2;
@@ -58,8 +59,8 @@ public class HistoryActivity extends AppCompatActivity {
         line6 = findViewById(R.id.activity_history_line_6);
         line7 = findViewById(R.id.activity_history_line_7);
 
-        commentLine1 = findViewById(R.id.activity_history__comment_1);
-        commentLine2 = findViewById(R.id.activity_history__comment_2);
+        commentLine1 = findViewById(R.id.activity_history_comment_1);
+        commentLine2 = findViewById(R.id.activity_history_comment_2);
         commentLine3 = findViewById(R.id.activity_history__comment_3);
         commentLine4 = findViewById(R.id.activity_history__comment_4);
         commentLine5 = findViewById(R.id.activity_history__comment_5);
@@ -72,7 +73,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void moodHistory() {
         final String[] last7Days = TimeUtils.getLast7Days();
-        LinearLayout[] tabLine = {line1, line2, line3, line4, line5, line6, line7};
+        ConstraintLayout[] tabLine = {line1, line2, line3, line4, line5, line6, line7};
         ImageView[] tabComment = {commentLine1, commentLine2, commentLine3, commentLine4, commentLine5, commentLine6, commentLine7};
 
         for (int i = 0; i < last7Days.length; i++) {
@@ -84,6 +85,7 @@ public class HistoryActivity extends AppCompatActivity {
                 if (dayInfo != null) {
                     tabLine[i].setBackgroundColor(Color.parseColor(dayInfo.getMood().getColor()));
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tabLine[i].getLayoutParams();
+                    layoutParams.width = 0;
                     layoutParams.weight = dayInfo.getMood().getHistoryWidth();
 
                     // If existing, we print the comment via a Toast

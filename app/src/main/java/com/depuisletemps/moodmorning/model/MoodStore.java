@@ -34,7 +34,8 @@ public class MoodStore {
     }
 
     /*
-     Would be useful if we want to check the 7 last moods instead of the moods of the 7 last days
+    WARNING :
+    KEPT ONLY IF WE WOULD LIKE TO CHANGE THE HISTORY FOR THE 7 LAST MOODS
      public TreeMap<String, String> getAllDatesSorted(Context context) {
         SharedPreferences mPreferences = context.getSharedPreferences("mPreferences", Context.MODE_PRIVATE);
         Map<String, ?> allPrefs = mPreferences.getAll();

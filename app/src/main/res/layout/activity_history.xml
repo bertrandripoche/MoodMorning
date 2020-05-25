@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#bbb"
@@ -12,38 +13,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_1"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_1">
 
             <TextView
                 android:id="@+id/activity_history_mood_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/week"/>
+                android:paddingLeft="5dp"
+                android:text="@string/week"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/activity_history__comment_1"
+                android:id="@+id/activity_history_comment_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-25dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,38 +62,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_2"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_2">
 
             <TextView
-                android:id="@+id/activity_history__mood_2"
+                android:id="@+id/activity_history_mood_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/six_days"/>
+                android:paddingLeft="5dp"
+                android:text="@string/six_days"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/activity_history__comment_2"
+                android:id="@+id/activity_history_comment_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-25dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -94,38 +111,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_3">
 
             <TextView
                 android:id="@+id/activity_history__mood_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/five_days"/>
+                android:paddingLeft="5dp"
+                android:text="@string/five_days"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/activity_history__comment_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -135,38 +160,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_4"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_4">
 
             <TextView
                 android:id="@+id/activity_history__mood_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/four_days"/>
+                android:paddingLeft="5dp"
+                android:text="@string/four_days"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/activity_history__comment_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -176,38 +209,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_5"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_5">
 
             <TextView
                 android:id="@+id/activity_history__mood_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/three_days"/>
+                android:paddingLeft="5dp"
+                android:text="@string/three_days"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/activity_history__comment_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -217,38 +258,46 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_6"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_6">
 
             <TextView
                 android:id="@+id/activity_history__mood_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/two_days"/>
+                android:paddingLeft="5dp"
+                android:text="@string/two_days"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/activity_history__comment_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -258,38 +307,45 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:baselineAligned="false">
-
-        <LinearLayout
-            android:id="@+id/activity_history_line_7"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/activity_history_line_7">
 
             <TextView
                 android:id="@+id/activity_history__mood_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="5dp"
+                android:gravity="start"
                 android:paddingStart="5dp"
-                android:text="@string/yesterday"/>
+                android:paddingLeft="5dp"
+                android:text="@string/yesterday"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/activity_history__comment_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:paddingRight="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="-20dp"
-                android:src="@drawable/ic_comment_black_48px"
                 android:background="#0000"
                 android:contentDescription="@string/comment_icon"
-                android:visibility="invisible"/>
-        </LinearLayout>
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/ic_comment_black_48px"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </LinearLayout>
-
 </LinearLayout>
